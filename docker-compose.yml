@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  healthmed_db:
+    image: postgres:15.4
+    container_name: healthmed_db
+    volumes:
+      - healthmed_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: healthmed
+      POSTGRES_USER: meduser
+      POSTGRES_PASSWORD: health@Med123!
+    ports:
+      - "5432:5432"
+    restart: always
+
+volumes:
+  healthmed_db:
+    driver: local
