@@ -2,6 +2,7 @@ package com.fiap.healthmed.driver.web
 
 import com.fiap.healthmed.domain.MedicalAppointment
 import com.fiap.healthmed.driver.web.request.JustificationCancellationRequest
+import com.fiap.healthmed.driver.web.request.TimeAndDateToScheduleRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -11,7 +12,9 @@ interface MedicalAppointmentByPatientApi {
     @PostMapping("/{crm}")
     fun scheduleAppointment(
         @PathVariable document: String,
-        @PathVariable crm: String): ResponseEntity<MedicalAppointment>
+        @PathVariable crm: String,
+        @RequestBody requestBody: TimeAndDateToScheduleRequest
+    ): ResponseEntity<MedicalAppointment>
 
     @PostMapping("/cancel/{appointmentNumber}")
     fun cancelAppointment(

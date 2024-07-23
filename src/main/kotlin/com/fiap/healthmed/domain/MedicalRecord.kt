@@ -2,7 +2,7 @@ package com.fiap.healthmed.domain
 
 data class MedicalRecord(
     val number: Long?,
-    val medicalAppointmentNumber: Long,
+    val medicalAppointmentNumber: MedicalAppointment,
     val doctorCrm: String,
     val patientDocument: String,
     val provider: String = "S3",
