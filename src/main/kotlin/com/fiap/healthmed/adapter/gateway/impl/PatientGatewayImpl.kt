@@ -1,4 +1,6 @@
 package com.fiap.healthmed.adapter.gateway.impl
 
-class PatientGatewayImpl {
+import com.fiap.healthmed.adapter.gateway.PatientGateway
+
+class PatientGatewayImpl : PatientGateway {
 }

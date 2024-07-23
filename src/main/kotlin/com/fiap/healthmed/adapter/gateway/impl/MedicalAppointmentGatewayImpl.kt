@@ -1,4 +1,6 @@
 package com.fiap.healthmed.adapter.gateway.impl
 
-class MedicalAppointmentGatewayImpl {
+import com.fiap.healthmed.adapter.gateway.MedicalAppointmentGateway
+
+class MedicalAppointmentGatewayImpl : MedicalAppointmentGateway {
 }
