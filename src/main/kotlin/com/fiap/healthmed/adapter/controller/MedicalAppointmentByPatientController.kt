@@ -40,7 +40,7 @@ class MedicalAppointmentByPatientController(
     ): ResponseEntity<MedicalAppointment> {
         return ResponseEntity.ok(
             cancelAppointmentUseCase.cancel(
-                document, appointmentNumber.toLong(), requestBody.text
+                document, appointmentNumber, requestBody.text
             )
         )
     }
