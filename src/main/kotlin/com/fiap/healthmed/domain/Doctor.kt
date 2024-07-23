@@ -1,6 +1,5 @@
 package com.fiap.healthmed.domain
 
-import com.fiap.healthmed.driver.web.request.AvailableTimesRequest
 import java.math.BigDecimal
 
 data class Doctor(
@@ -12,6 +11,6 @@ data class Doctor(
     val phoneNumber: String,
     val serviceZipCode: String,
     val serviceAddress: String,
-    val availableTimes: AvailableTimesRequest,
+    val availableTimes: AvailableTimes,
     val appointmentPrice: BigDecimal,
 )
