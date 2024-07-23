@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 
 data class MedicalAppointment(
     val number: Long?,
-    val doctorCrm: Doctor,
+    val doctor: Doctor,
     val patientDocument: Patient,
     val expectedStartTime: LocalDateTime,
     val estimatedTimeSpentInMinutes: Int = 50,

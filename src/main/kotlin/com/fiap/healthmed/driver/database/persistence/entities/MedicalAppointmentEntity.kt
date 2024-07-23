@@ -13,7 +13,7 @@ class MedicalAppointmentEntity (
     val number: Long?,
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medical_appointment_doctor_crm")
-    val doctorCrm: DoctorEntity? = null,
+    val doctor: DoctorEntity? = null,
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medical_appointment_patient_document")
     val patientDocument: PatientEntity? = null,
