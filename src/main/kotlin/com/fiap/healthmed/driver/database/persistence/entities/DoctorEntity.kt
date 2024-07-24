@@ -27,7 +27,7 @@ class DoctorEntity (
     @Column(name = "doctor_service_address")
     val serviceAddress: String,
     @Column(name = "doctor_available_times")
-    val availableTimes: String,
+    val doctorAvailableTimes: String,
     @Column(name = "doctor_appointment_price")
     val appointmentPrice: BigDecimal,
 )
