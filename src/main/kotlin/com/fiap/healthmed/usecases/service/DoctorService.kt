@@ -9,21 +9,22 @@ import com.fiap.healthmed.usecases.UpdateAvailableTimeDoctorUseCase
 import com.fiap.healthmed.usecases.UpdateDoctorUseCase
 
 class DoctorService(
-    private val doctorGateway : DoctorGateway,
+    private val doctorGateway: DoctorGateway
 ) : CreateDoctorUseCase, UpdateDoctorUseCase, UpdateAvailableTimeDoctorUseCase, SearchDoctorUseCase {
+
     override fun create(doctor: Doctor): Doctor {
-        TODO("Not yet implemented")
+        return doctorGateway.createDoctor(doctor)
     }
 
     override fun update(doctor: Doctor): Doctor {
-        TODO("Not yet implemented")
+        return doctorGateway.updateDoctor(doctor)
     }
 
     override fun updateAvailableTime(crm: String, availableTimes: AvailableTimes): Doctor {
-        TODO("Not yet implemented")
+        return doctorGateway.updateDoctorAvailableTimes(crm, availableTimes)
     }
 
     override fun search(query: Map<String, String>): List<Doctor> {
-        TODO("Not yet implemented")
+        return doctorGateway.searchDoctors(query)
     }
 }
