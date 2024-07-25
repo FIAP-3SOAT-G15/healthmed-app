@@ -4,11 +4,14 @@ import com.fiap.healthmed.adapter.gateway.PatientGateway
 import com.fiap.healthmed.domain.Patient
 import com.fiap.healthmed.driver.database.persistence.jpa.PatientJpaRepository
 import com.fiap.healthmed.driver.database.persistence.mapper.PatientMapper
+import org.mapstruct.factory.Mappers
 
 class PatientGatewayImpl(
     private val patientJpaRepository: PatientJpaRepository,
-    private val patientMapper: PatientMapper
 ) : PatientGateway {
+
+    private val patientMapper: PatientMapper = Mappers.getMapper(PatientMapper::class.java)
+
 
     override fun createPatient(patient: Patient): Patient {
         val patientEntity = patientMapper.fromDomain(patient)
