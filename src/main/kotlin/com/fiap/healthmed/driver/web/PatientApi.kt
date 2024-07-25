@@ -18,7 +18,7 @@ interface PatientApi {
         ],
     )
     @PostMapping("/create")
-    fun create(@RequestBody request: PatientRequest) : ResponseEntity<Patient>
+    fun create(@RequestBody request: PatientRequest): ResponseEntity<Patient>
 
     @Operation(summary = "Atualizar um cadastro de um paciente")
     @ApiResponses(
@@ -30,5 +30,5 @@ interface PatientApi {
     fun update(
         @PathVariable document: String,
         @RequestBody request: PatientRequest
-    ) : ResponseEntity<Patient>
+    ): ResponseEntity<Patient>
 }

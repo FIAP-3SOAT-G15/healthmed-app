@@ -14,5 +14,6 @@ interface MedicalRecordApi {
     @PostMapping("/append")
     fun appendAnnotations(
         @RequestBody request: MedicalRecordContentRequest,
-        @PathVariable appointmentNumber: String) : ResponseEntity<MedicalAppointment>
+        @PathVariable appointmentNumber: String
+    ): ResponseEntity<MedicalAppointment>
 }

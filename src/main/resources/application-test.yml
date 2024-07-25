@@ -1,5 +1,5 @@
 admin:
-  access-token: token
+    access-token: token
 
 payment-provider:
-  mock: true
+    mock: true

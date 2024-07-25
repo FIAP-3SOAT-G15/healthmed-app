@@ -5,5 +5,6 @@ import com.fiap.healthmed.domain.MedicalAppointment
 interface CancelAppointmentUseCase {
 
     fun cancel(
-        documentPatient: String, appointmentNumber: String, justification: String) : MedicalAppointment
+        documentPatient: String, appointmentNumber: String, justification: String
+    ): MedicalAppointment
 }

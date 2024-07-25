@@ -24,5 +24,5 @@ interface MedicalAppointmentByPatientApi {
     ): ResponseEntity<MedicalAppointment>
 
     @GetMapping
-    fun getAllMyAppointments(@PathVariable document: String) : ResponseEntity<List<MedicalAppointment>>
+    fun getAllMyAppointments(@PathVariable document: String): ResponseEntity<List<MedicalAppointment>>
 }

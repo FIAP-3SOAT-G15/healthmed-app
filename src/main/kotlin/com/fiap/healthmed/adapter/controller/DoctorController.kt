@@ -20,10 +20,10 @@ class DoctorController(
 ) : DoctorApi {
 
     private val service = DoctorService(doctorGateway)
-    private val createDoctorUseCase : CreateDoctorUseCase = service
-    private val updateDoctorUseCase : UpdateDoctorUseCase = service
-    private val updateAvailableTimeDoctorUseCase : UpdateAvailableTimeDoctorUseCase = service
-    private val searchDoctorUseCase : SearchDoctorUseCase = service
+    private val createDoctorUseCase: CreateDoctorUseCase = service
+    private val updateDoctorUseCase: UpdateDoctorUseCase = service
+    private val updateAvailableTimeDoctorUseCase: UpdateAvailableTimeDoctorUseCase = service
+    private val searchDoctorUseCase: SearchDoctorUseCase = service
 
 
     override fun create(request: DoctorRequest): ResponseEntity<Doctor> {

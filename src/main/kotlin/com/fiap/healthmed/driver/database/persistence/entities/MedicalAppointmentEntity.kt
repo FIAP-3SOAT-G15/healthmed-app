@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "medical_appointment")
-class MedicalAppointmentEntity (
+class MedicalAppointmentEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medical_appointment_number")

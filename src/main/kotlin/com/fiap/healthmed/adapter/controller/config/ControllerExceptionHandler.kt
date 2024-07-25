@@ -20,6 +20,7 @@ class ControllerExceptionHandler {
                         ApiError(domainException.errorType.name, domainException.message),
                         HttpStatus.NOT_FOUND,
                     )
+
                 else ->
                     ApiErrorResponseEntity(
                         ApiError(ErrorType.UNEXPECTED_ERROR.name, domainException.localizedMessage),
