@@ -23,18 +23,19 @@ class MedicalAppointmentService(
     }
 
     override fun listByPatient(patientDocument: String): List<MedicalAppointment> {
-        TODO("Not yet implemented")
+        return medicalAppointmentGateway.findAppointmentsByPatient(patientDocument)
     }
 
     override fun listByDoctor(crm: String): List<MedicalAppointment> {
-        TODO("Not yet implemented")
+        return medicalAppointmentGateway.findAppointmentsByDoctor(crm)
     }
 
     override fun reject(crm: String, appointmentNumber: String): MedicalAppointment {
         return medicalAppointmentGateway.rejectAppointment(appointmentNumber)
     }
 
-    override fun schedule(crm: String, document: String, scheduleAt: LocalDateTime) : MedicalAppointment {
+    override fun schedule(crm: String, document: String, scheduleAt: LocalDateTime): MedicalAppointment {
         return medicalAppointmentGateway.createAppointment(crm, document, scheduleAt)
     }
 }
+

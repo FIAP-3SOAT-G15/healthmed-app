@@ -20,4 +20,8 @@ interface MedicalAppointmentGateway {
     fun rejectAppointment(appointmentNumber: String): MedicalAppointment
 
     fun createAppointment(crm: String, document: String, scheduleAt: LocalDateTime): MedicalAppointment
+
+    fun findAppointmentsByPatient(patientDocument: String): List<MedicalAppointment>
+
+    fun findAppointmentsByDoctor(crm: String): List<MedicalAppointment>
 }

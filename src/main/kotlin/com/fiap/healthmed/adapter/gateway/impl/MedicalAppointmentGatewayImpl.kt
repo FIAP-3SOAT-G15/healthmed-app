@@ -11,6 +11,7 @@ import org.mapstruct.factory.Mappers
 import java.time.LocalDateTime
 
 class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository: MedicalAppointmentJpaRepository) :
+
     MedicalAppointmentGateway {
     private val mapper = Mappers.getMapper(MedicalAppointmentMapper::class.java)
 
@@ -48,6 +49,13 @@ class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository:
         TODO()
     }
 
+    override fun findAppointmentsByPatient(patientDocument: String): List<MedicalAppointment> {
+        TODO()
+    }
+
+    override fun findAppointmentsByDoctor(crm: String): List<MedicalAppointment> {
+        TODO()
+    }
 
     override fun cancelAppointment(appointmentNumber: String, justification: String): MedicalAppointment {
         return updateAppointmentStatus(appointmentNumber, MedicalAppointmentStatus.CANCELED, justification)
