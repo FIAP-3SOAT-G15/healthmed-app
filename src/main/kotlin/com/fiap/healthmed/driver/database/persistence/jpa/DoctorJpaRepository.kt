@@ -5,5 +5,7 @@ import org.springframework.data.repository.CrudRepository
 
 interface DoctorJpaRepository : CrudRepository<DoctorEntity, String> {
     fun findByCrm(crm: String): DoctorEntity?
-    fun search(query: Map<String, String>): List<DoctorEntity> // Implement custom search logic
+    fun findBySpecialty(speciality: String): List<DoctorEntity>
+    fun findByNameContains(name: String): List<DoctorEntity>
+    fun findByNameContainsAndSpecialty(speciality: String, name: String): List<DoctorEntity>
 }

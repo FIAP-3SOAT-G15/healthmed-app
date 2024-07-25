@@ -46,4 +46,7 @@ interface DoctorApi {
 
     @GetMapping("/search")
     fun search(@RequestParam query: Map<String, String>) : ResponseEntity<List<Doctor>>
+
+    @GetMapping("/{crm}")
+    fun get(@PathVariable crm: String) : ResponseEntity<Doctor>
 }

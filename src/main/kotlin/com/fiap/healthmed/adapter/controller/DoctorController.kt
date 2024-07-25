@@ -41,4 +41,9 @@ class DoctorController(
     override fun search(query: Map<String, String>): ResponseEntity<List<Doctor>> {
         return ResponseEntity.ok(searchDoctorUseCase.search(query))
     }
+
+    override fun get(crm: String): ResponseEntity<Doctor> {
+        return ResponseEntity.ok(searchDoctorUseCase.get(crm))
+
+    }
 }

@@ -11,5 +11,11 @@ interface DoctorGateway {
 
     fun updateDoctorAvailableTimes(crm: String, availableTimes: AvailableTimes): Doctor
 
-    fun searchDoctors(query: Map<String, String>): List<Doctor>
+    fun get(crm: String): Doctor
+
+    fun searchDoctorWithName(speciality: String): List<Doctor>
+
+    fun searchDoctorWithSpeciality(speciality: String): List<Doctor>
+
+    fun searchDoctorWithNameAndSpeciality(speciality: String, name: String): List<Doctor>
 }

@@ -25,6 +25,25 @@ class DoctorService(
     }
 
     override fun search(query: Map<String, String>): List<Doctor> {
-        return doctorGateway.searchDoctors(query)
+        val speciality = query["speciality"]
+        val name = query["name"]
+
+        if (speciality != null && name != null) {
+            return doctorGateway.searchDoctorWithNameAndSpeciality(speciality, name)
+        }
+
+        if (speciality != null) {
+            return doctorGateway.searchDoctorWithSpeciality(speciality)
+        }
+
+        if (name != null) {
+            return doctorGateway.searchDoctorWithName(name)
+        }
+
+        return emptyList()
+    }
+
+    override fun get(crm: String): Doctor {
+        return doctorGateway.get(crm)
     }
 }
