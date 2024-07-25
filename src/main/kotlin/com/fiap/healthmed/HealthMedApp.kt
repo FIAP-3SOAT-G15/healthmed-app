@@ -13,7 +13,7 @@ import org.springframework.boot.runApplication
         Info(
             title = "HealthMed App",
             version = "1.0.0",
-            description = "Microsserviço de estoque",
+            description = "MVP telemedicine app",
             contact = Contact(
                 name = "Grupo 15",
                 url = "http://fiap-3soat-g15.s3-website-us-east-1.amazonaws.com",

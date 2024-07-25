@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS medical_appointment (
     medical_appointment_status VARCHAR(255) NOT NULL,
     medical_appointment_status_changed TIMESTAMP,
     medical_appointment_justification_cancellation_by_patient VARCHAR(2000),
-    CONSTRAINT fk_medical_appointment_doctor_number FOREIGN KEY(medical_appointment_doctor_number) REFERENCES docker(doctor_number),
-    CONSTRAINT fk_medical_appointment_patient_number FOREIGN KEY(medical_appointment_patient_number) REFERENCES patient(patient_number)
+    CONSTRAINT fk_medical_appointment_doctor_number FOREIGN KEY(medical_appointment_doctor_crm) REFERENCES doctor(doctor_crm),
+    CONSTRAINT fk_medical_appointment_patient_number FOREIGN KEY(medical_appointment_patient_document) REFERENCES patient(patient_document)
 );
 
 

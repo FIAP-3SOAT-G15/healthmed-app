@@ -1,19 +1,43 @@
-version: '3.7'
+name: healthmed
 
 services:
-  healthmed_db:
-    image: postgres:15.4
-    container_name: healthmed_db
-    volumes:
-      - healthmed_db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: healthmed
-      POSTGRES_USER: meduser
-      POSTGRES_PASSWORD: health@Med123!
-    ports:
-      - "5432:5432"
-    restart: always
+    healthmed_db:
+        image: postgres:15.4
+        volumes:
+            - healthmed_db:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: healthmed
+            POSTGRES_USER: meduser
+            POSTGRES_PASSWORD: health@Med123!
+        ports:
+            - "5432:5432"
+        restart: always
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+    healthmed_api:
+        image: fiap-3soat-g15-healthmed-api:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            healthmed_db:
+                condition: service_healthy
+        environment:
+            DB_ENDPOINT: healthmed_db:5432
+            DB_NAME: healthmed
+            DB_USERNAME: meduser
+            DB_PASSWORD: health@Med123!
+        ports:
+            - "8082:8082"
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD-SHELL", "curl -sf http://localhost:8082/actuator/health | grep -q \"UP\" || exit 1"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
 volumes:
-  healthmed_db:
-    driver: local
+    healthmed_db:
