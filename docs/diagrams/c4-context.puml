@@ -1,0 +1,31 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+AddRelTag("async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DashedLine())
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DashedLine())
+
+LAYOUT_WITH_LEGEND()
+
+title Diagrama de Contexto C4
+
+Boundary(users, "Usuários") {
+    Person(doctor, "Médico", "Gerencia disponibilidade, confirma agendamentos, realiza consultas, solicita, acessa e adiciona dados em prontuários eletrônicos")
+    Person(patient, "Paciente", "Busca por médicos, solicita agendamentos, participa de consultas, gerencia seu próprio prontuário eletrônico")
+    Person(admin, "Admin", "Aprova cadastro de médico verificando identidade e CRM")
+}
+
+System(system, "Health&Med", "Sistema de agendamento e realização de consultas médicas online com prontuário eletrônico")
+
+System_Ext(crm_api, "API de CRM", "Expõe lista de médicos no CRM (de todos os estados)")
+System_Ext(video_system, "Serviço de videoconferência", "Disponibiliza funcionalidade de video chamadas para realização de consultas online")
+System_Ext(email_system, "Serviço de e-mail", "Envia e-mails para usuários do sistema (ex.: cadastro de médico verificado, consulta confirmada, acesso de prontuário concedido, etc")
+
+Rel(users, system, "usa")
+
+Rel_Back(crm_api, system, "verifica CRM com")
+Rel_Neighbor(system, email_system, "envia e-mail usando", $tags="async")
+Rel(system, video_system, "usa", $tags="sync/async")
+
+Rel(email_system, users, "envia e-mail para", $tags="async")
+
+@enduml
