@@ -5,6 +5,5 @@ enum class ErrorType {
     DOCTOR_NOT_FOUND,
     DOCKER_ALREADY_EXISTS,
 
-    UNEXPECTED_ERROR
-    ,
+    UNEXPECTED_ERROR,
 }

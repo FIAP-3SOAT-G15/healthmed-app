@@ -10,7 +10,8 @@ data class AvailableTimes(val slots: Map<DayOfWeek, List<AvailablePeriods>>) {
         init {
             if (start.isAfter(end)
                 || Duration.between(start, end) < Duration.ofMinutes(50)
-                    || Duration.between(start, end) > Duration.ofDays(1)) {
+                || Duration.between(start, end) > Duration.ofDays(1)
+            ) {
                 throw IllegalArgumentException("start must be after the end")
             }
         }

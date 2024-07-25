@@ -8,7 +8,7 @@ import java.math.BigDecimal
 
 @Entity
 @Table(name = "doctor")
-class DoctorEntity (
+class DoctorEntity(
     @Id
     @Column(name = "doctor_crm")
     val crm: String,

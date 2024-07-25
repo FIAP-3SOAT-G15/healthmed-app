@@ -17,8 +17,8 @@ class PatientController(
 ) : PatientApi {
 
     private val service: PatientService = PatientService(patientGateway)
-    private val createPatientUseCase : CreatePatientUseCase = service
-    private val updatePatientUseCase : UpdatePatientUseCase = service
+    private val createPatientUseCase: CreatePatientUseCase = service
+    private val updatePatientUseCase: UpdatePatientUseCase = service
 
     override fun create(request: PatientRequest): ResponseEntity<Patient> {
         return ResponseEntity.ok(

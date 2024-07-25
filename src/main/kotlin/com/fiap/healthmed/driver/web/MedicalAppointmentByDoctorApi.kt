@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 interface MedicalAppointmentByDoctorApi {
 
     @GetMapping
-    fun getAllMyAppointments(@PathVariable crm: String) : ResponseEntity<List<MedicalAppointment>>
+    fun getAllMyAppointments(@PathVariable crm: String): ResponseEntity<List<MedicalAppointment>>
 
     @PostMapping("/reject/{appointmentNumber}")
     fun rejectAppointment(

@@ -3,7 +3,9 @@ package com.fiap.healthmed.adapter.controller
 import com.fiap.healthmed.adapter.gateway.MedicalAppointmentGateway
 import com.fiap.healthmed.domain.MedicalAppointment
 import com.fiap.healthmed.driver.web.MedicalAppointmentByDoctorApi
-import com.fiap.healthmed.usecases.*
+import com.fiap.healthmed.usecases.AcceptAppointmentUseCase
+import com.fiap.healthmed.usecases.ListMedicalAppointmentByDoctorUseCase
+import com.fiap.healthmed.usecases.RejectAppointmentUseCase
 import com.fiap.healthmed.usecases.service.MedicalAppointmentService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController

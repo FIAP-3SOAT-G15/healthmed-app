@@ -10,15 +10,15 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 @OpenAPIDefinition(
     info =
-        Info(
-            title = "HealthMed App",
-            version = "1.0.0",
-            description = "MVP telemedicine app",
-            contact = Contact(
-                name = "Grupo 15",
-                url = "http://fiap-3soat-g15.s3-website-us-east-1.amazonaws.com",
-            ),
+    Info(
+        title = "HealthMed App",
+        version = "1.0.0",
+        description = "MVP telemedicine app",
+        contact = Contact(
+            name = "Grupo 15",
+            url = "http://fiap-3soat-g15.s3-website-us-east-1.amazonaws.com",
         ),
+    ),
     servers = [
         Server(url = "/"),
     ],

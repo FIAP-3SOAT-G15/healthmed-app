@@ -19,7 +19,7 @@ interface DoctorApi {
         ],
     )
     @PostMapping("/create")
-    fun create(@RequestBody request: DoctorRequest) : ResponseEntity<Doctor>
+    fun create(@RequestBody request: DoctorRequest): ResponseEntity<Doctor>
 
     @Operation(summary = "Atualizar um cadastro de um médico")
     @ApiResponses(
@@ -30,7 +30,8 @@ interface DoctorApi {
     @PutMapping("/update/{crm}")
     fun update(
         @PathVariable crm: String,
-        @RequestBody request: DoctorRequest) : ResponseEntity<Doctor>
+        @RequestBody request: DoctorRequest
+    ): ResponseEntity<Doctor>
 
     @Operation(summary = "Atualizar os horarios disponiveis do medico")
     @ApiResponses(
@@ -41,12 +42,13 @@ interface DoctorApi {
     @PatchMapping("/update/available/{crm}")
     fun updateAvailableTimes(
         @PathVariable crm: String,
-        @RequestBody request: AvailableTimesRequest) : ResponseEntity<Doctor>
+        @RequestBody request: AvailableTimesRequest
+    ): ResponseEntity<Doctor>
 
 
     @GetMapping("/search")
-    fun search(@RequestParam query: Map<String, String>) : ResponseEntity<List<Doctor>>
+    fun search(@RequestParam query: Map<String, String>): ResponseEntity<List<Doctor>>
 
     @GetMapping("/{crm}")
-    fun get(@PathVariable crm: String) : ResponseEntity<Doctor>
+    fun get(@PathVariable crm: String): ResponseEntity<Doctor>
 }
