@@ -6,20 +6,21 @@ AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $
 
 LAYOUT_WITH_LEGEND()
 
-title Diagrama de Container C4
+title Diagrama de Container (C4)
 
 Boundary(users, "Usuários") {
     Person(doctor, "Médico", "Gerencia disponibilidade, confirma agendamentos, realiza consultas, solicita, acessa e adiciona dados em prontuários eletrônicos")
     Person(patient, "Paciente", "Busca por médicos, solicita agendamentos, participa de consultas, gerencia seu próprio prontuário eletrônico")
-    Person(admin, "Admin", "Aprova cadastro de médico verificando identidade e CRM")
 }
 
 System_Boundary(self_order_system, "Health&Med") {
     Container(frontend, "Frontend", "Web/Mobile", "Aplicação web e/ou mobile de interface do usuário")
 
-    System_Boundary(register_service, "Cadastro Service") {
-        Container(register_app, "Cadastro API", "Spring Boot", "API para cadastro de médicos e pacientes")
-        ContainerDb(register_db, "Cadastro DB", "DynamoDB")
+    Container(api_gateway, "API Gateway", "AWS API Gateway", "BFF como ponto de entrada para requisições no sistema")
+
+    System_Boundary(user_service, "Usuário Service") {
+        Container(user_app, "Usuário API", "Spring Boot", "API para cadastro e busca de médicos e pacientes")
+        ContainerDb(user_db, "Usuário DB", "Postgres")
     }
 
     System_Boundary(booking_service, "Agendamento Service") {
@@ -34,24 +35,28 @@ System_Boundary(self_order_system, "Health&Med") {
     }
 }
 
-System_Ext(crm_api, "API de CRM", "Expõe lista de médicos no CRM (de todos os estados)")
+System_Ext(crm_system, "Serviço de CRM", "Expõe lista de médicos no CRM (de todos os estados)")
+System_Ext(kyc_system, "Serviço de Identidade", "Verifica identidade dos usuários")
 System_Ext(email_system, "Serviço de e-mail", "Envia e-mails para usuários do sistema (ex.: cadastro de médico verificado, consulta confirmada, acesso de prontuário concedido, etc")
 System_Ext(video_system, "Serviço de videoconferência", "Disponibiliza funcionalidade de video chamadas para realização de consultas online")
 
-Rel(users, frontend, "usa")
+Rel(users, frontend, "usam")
 Rel(email_system, users, "envia para", $tags="async")
 
-Rel(video_system, frontend, "entrega vídeo")
-Rel(frontend, register_app, "requests")
-Rel(frontend, booking_app, "requests")
-Rel(frontend, handbook_app, "requests")
+Rel(video_system, frontend, "disponibiliza serviço")
+Rel(frontend, api_gateway, "requests")
 Rel(frontend, handbook_store, "baixa/sobe arquivos")
 
-Rel(register_app, register_db, "read/write", "JDBC")
-Rel(register_app, crm_api, "valida CRM", "HTTP")
-Rel(register_app, email_system, "requests", "HTTP", $tags="async")
+Rel(api_gateway, user_app, "requests")
+Rel(api_gateway, booking_app, "requests")
+Rel(api_gateway, handbook_app, "requests")
 
-Rel(booking_app, register_app, "requests", "HTTP")
+Rel(user_app, user_db, "read/write", "JDBC")
+Rel(user_app, crm_system, "verifica CRM", "HTTP")
+Rel(user_app, kyc_system, "verifica identidade", "HTTP")
+Rel(user_app, email_system, "requests", "HTTP", $tags="async")
+
+Rel(booking_app, user_app, "requests", "HTTP")
 Rel(booking_app, booking_db, "read/write", "JDBC")
 Rel(booking_app, email_system, "requests", "HTTP", $tags="async")
 Rel(booking_app, video_system, "requests", "HTTP")
