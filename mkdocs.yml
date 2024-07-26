@@ -1,0 +1,28 @@
+site_name: Health&Med
+site_description: Conectando saúde e tecnologia para um futuro mais saudável
+site_url: http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com
+repo_url: https://github.com/FIAP-3SOAT-G15/healthmed-app
+dev_addr: 0.0.0.0:8000
+use_directory_urls: true
+theme:
+    name: material
+    palette:
+        - media: "(prefers-color-scheme: light)"
+          scheme: default
+          primary: blue
+          accent: blue
+          toggle:
+              icon: material/brightness-7
+              name: Switch to dark mode
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
+          primary: black
+          accent: blue
+          toggle:
+              icon: material/brightness-4
+              name: Switch to light mode
+    features:
+        - navigation.tracking
+        - navigation.top
+        - navigation.indexes
+        - toc.follow

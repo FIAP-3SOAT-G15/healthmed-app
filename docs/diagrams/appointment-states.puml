@@ -1,0 +1,19 @@
+@startuml
+
+title Estados de Consulta
+
+state Active {
+    state entry <<entryPoint>>
+    entry --> SCHEDULED
+
+    SCHEDULED --> CANCELLED : agendamento cancelado
+    SCHEDULED --> ACCEPTED : agendamento confirmado
+    SCHEDULED --> REJECTED : agendamento recusado
+    ACCEPTED --> FINISHED : consulta finalizada
+}
+
+CANCELLED --> [*]
+FINISHED --> [*]
+REJECTED --> [*]
+
+@enduml
