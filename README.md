@@ -1,17 +1,31 @@
 # Health&Med
 
-[Acesse nosso website!](http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com)
+> Acesse o [website](http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com) da nossa documentação! ✨
+>
+> Publicamos nossa documentação automaticamente em nosso [website]((http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com)). Lá você encontrará todas as informações, documentos e diagramas a respeito da nossa documentação e do nosso MVP de uma forma intuituva, agradável, e indexada, permitindo buscas eficientes. Boa leitura!
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=coverage)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
-
-Autores membros do Grupo 15:
+Grupo 15:
 
 - Bleno Humberto Claus
 - Giovanni Di Luca Evangelista
 - Lucas Gabriel dos Santos
 - Mateus Sales Albino
 - Wellyson de Freitas Santos
+
+<p align="center">
+    <img src="docs/cover.png">
+</p>
+
+## Health&Med MVP
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=coverage)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
+
+Nosso MVP é uma versão simplificada para fins de demonstração dos requisitos atendidos durante o Hackathon. Compreende um monolito com um banco de dados relacional e uso de serviços serverless na AWS. Toda a infraestrutura descrita em Terraform e a imagem da aplicação são automatizados em nossas pipelines com GitHub Actions, que inclui verificação dos testes e análise estática no SonarQube.
+
+Projeto no SonarCloud: https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app
+
+Também criamos uma extensa documentação para suportar uma aplicação escalável e resiliente que atenda a todos os requisitos não funcionais.
 
 ## Requisitos
 
@@ -92,13 +106,6 @@ Descrição dos workflows do GitHub Actions:
 - [docs.yaml](.github/workflows/docs.yaml): cria o website para a documentação contida em [/docs](/docs).
 - [provision.yaml](.github/workflows/provision.yaml): realiza o provisionamento dos recursos de infra na AWS.
 
-## Análise Estática
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=coverage)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
-
-Projeto no SonarCloud: https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app
-
 ## Executar
 
 ```bash
@@ -127,3 +134,4 @@ mvn clean verify -DskipITs=false
 
 ```
 mvn antrun:run@ktlint-format
+```

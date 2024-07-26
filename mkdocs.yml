@@ -6,6 +6,8 @@ dev_addr: 0.0.0.0:8000
 use_directory_urls: true
 theme:
     name: material
+    logo: logo-white.png
+    favicon: logo.png
     palette:
         - media: "(prefers-color-scheme: light)"
           scheme: default
