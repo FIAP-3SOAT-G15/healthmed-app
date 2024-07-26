@@ -6,7 +6,6 @@ import org.mapstruct.Mapper
 
 @Mapper
 interface MedicalRecordMapper {
-
     fun toDomain(entity: MedicalRecordEntity): MedicalRecord
 
     fun fromDomain(domain: MedicalRecord): MedicalRecordEntity

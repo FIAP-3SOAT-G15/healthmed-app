@@ -19,7 +19,7 @@ class DoctorGatewayImpl(
     override fun createDoctor(doctor: Doctor): Doctor {
         getByCrm(doctor.crm)?.let {
             throw HealthMedException(
-                errorType = ErrorType.DOCKER_ALREADY_EXISTS,
+                errorType = ErrorType.DOCTOR_ALREADY_EXISTS,
                 message = "Doctor with CRM [${doctor.crm}] already exists",
             )
         }

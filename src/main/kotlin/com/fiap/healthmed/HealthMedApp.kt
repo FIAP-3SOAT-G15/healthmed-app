@@ -11,12 +11,12 @@ import org.springframework.boot.runApplication
 @OpenAPIDefinition(
     info =
     Info(
-        title = "HealthMed App",
+        title = "Health&Med MVP",
         version = "1.0.0",
-        description = "MVP telemedicine app",
+        description = "Demo API para sistema de consultas médicas online",
         contact = Contact(
             name = "Grupo 15",
-            url = "http://fiap-3soat-g15.s3-website-us-east-1.amazonaws.com",
+            url = "http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com",
         ),
     ),
     servers = [

@@ -17,7 +17,7 @@ interface PatientApi {
             ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
         ],
     )
-    @PostMapping("/create")
+    @PostMapping
     fun create(@RequestBody request: PatientRequest): ResponseEntity<Patient>
 
     @Operation(summary = "Atualizar um cadastro de um paciente")
@@ -26,7 +26,7 @@ interface PatientApi {
             ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
         ],
     )
-    @PutMapping("/update/{document}")
+    @PutMapping("{document}")
     fun update(
         @PathVariable document: String,
         @RequestBody request: PatientRequest

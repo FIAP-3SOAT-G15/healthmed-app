@@ -13,8 +13,8 @@
     <artifactId>healthmed</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Health&amp;Med</name>
-    <description>Health&amp;Med API</description>
+    <name>Health&amp;Med MVP</name>
+    <description>Demo API para sistema de consultas médicas online</description>
 
     <properties>
         <java.version>17</java.version>
