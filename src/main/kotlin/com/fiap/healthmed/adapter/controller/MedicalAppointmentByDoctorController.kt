@@ -1,6 +1,8 @@
 package com.fiap.healthmed.adapter.controller
 
+import com.fiap.healthmed.adapter.gateway.DoctorGateway
 import com.fiap.healthmed.adapter.gateway.MedicalAppointmentGateway
+import com.fiap.healthmed.adapter.gateway.PatientGateway
 import com.fiap.healthmed.domain.MedicalAppointment
 import com.fiap.healthmed.driver.web.MedicalAppointmentByDoctorApi
 import com.fiap.healthmed.usecases.AcceptAppointmentUseCase
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class MedicalAppointmentByDoctorController(
-    medicalAppointmentGateway: MedicalAppointmentGateway
+    medicalAppointmentGateway: MedicalAppointmentGateway,
+    doctorGateway: DoctorGateway,
+    patientGateway: PatientGateway
 ) : MedicalAppointmentByDoctorApi {
 
 
-    private val service = MedicalAppointmentService(medicalAppointmentGateway)
+    private val service = MedicalAppointmentService(medicalAppointmentGateway, doctorGateway, patientGateway)
     private val rejectAppointmentUseCase: RejectAppointmentUseCase = service
     private val acceptAppointmentUseCase: AcceptAppointmentUseCase = service
     private val listMedicalAppointmentByDoctorUseCase: ListMedicalAppointmentByDoctorUseCase = service

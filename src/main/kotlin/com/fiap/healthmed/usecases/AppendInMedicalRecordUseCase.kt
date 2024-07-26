@@ -1,7 +1,7 @@
 package com.fiap.healthmed.usecases
 
-import com.fiap.healthmed.domain.MedicalRecord
+import com.fiap.healthmed.domain.MedicalAppointment
 
 interface AppendInMedicalRecordUseCase {
-    fun append(content: String, appointmentNumber: String): MedicalRecord
+    fun append(content: String, appointmentNumber: String): MedicalAppointment
 }

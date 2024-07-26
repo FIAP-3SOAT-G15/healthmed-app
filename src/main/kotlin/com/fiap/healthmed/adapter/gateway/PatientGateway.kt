@@ -6,4 +6,6 @@ interface PatientGateway {
     fun createPatient(patient: Patient): Patient
 
     fun updatePatient(patient: Patient): Patient
+
+    fun get(document: String): Patient
 }
