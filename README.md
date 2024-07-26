@@ -23,7 +23,13 @@ Além de conter as funcionalidades de agendamento e realização de consultas on
 
 Para viabilizar o desenvolvimento de um sistema que esteja em conformidade com as melhores práticas de qualidade e arquitetura de software, a Health&Med contratou os alunos do curso (SOAT) para fazer a análise do projeto e a arquitetura do software.
 
-[Continuar lendo...](/docs/README)
+[Continuar lendo...](/docs/README.md)
+
+## DDD
+
+- [Glossário Ubíquo](/docs/ddd.md#glossario-ubiquo)
+- [Storytelling](/docs/ddd.md#storytelling)
+- [Event Storming](/docs/ddd.md#event-storming)
 
 ## Decisões de Arquitetura
 
