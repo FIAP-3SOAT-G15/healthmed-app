@@ -20,6 +20,7 @@ class MedicalAppointmentService(
     ListMedicalAppointmentByDoctorUseCase,
     RejectAppointmentUseCase,
     ScheduleAppointmentUseCase {
+
     override fun accept(crm: String, appointmentNumber: String): MedicalAppointment {
         return medicalAppointmentGateway.acceptAppointment(appointmentNumber)
     }

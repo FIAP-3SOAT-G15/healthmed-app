@@ -1,0 +1,39 @@
+name: Docs
+
+on:
+    pull_request:
+        branches:
+            - main
+        paths:
+            - .github/workflows/docs.yml
+            - 'docs/**'
+    push:
+        branches:
+            - main
+        paths:
+            - .github/workflows/docs.yml
+            - 'docs/**'
+
+jobs:
+    docs:
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: read
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Build
+              run: make docs
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: ${{ vars.AWS_IAM_ROLE }}
+                  aws-region: ${{ vars.AWS_REGION }}
+
+            - name: Sync S3 bucket
+              #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+              run: aws s3 sync ./site/ s3://${{ vars.AWS_S3_BUCKET_NAME }} --delete

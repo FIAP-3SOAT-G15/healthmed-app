@@ -18,7 +18,7 @@ interface DoctorApi {
             ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
         ],
     )
-    @PostMapping("/create")
+    @PostMapping
     fun create(@RequestBody request: DoctorRequest): ResponseEntity<Doctor>
 
     @Operation(summary = "Atualizar um cadastro de um médico")
@@ -27,7 +27,7 @@ interface DoctorApi {
             ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
         ],
     )
-    @PutMapping("/update/{crm}")
+    @PutMapping("{crm}")
     fun update(
         @PathVariable crm: String,
         @RequestBody request: DoctorRequest
@@ -39,12 +39,11 @@ interface DoctorApi {
             ApiResponse(responseCode = "200", description = "Operação bem-sucedida"),
         ],
     )
-    @PatchMapping("/update/available/{crm}")
+    @PatchMapping("/{crm}/update-availability")
     fun updateAvailableTimes(
         @PathVariable crm: String,
         @RequestBody request: AvailableTimesRequest
     ): ResponseEntity<Doctor>
-
 
     @GetMapping("/search")
     fun search(@RequestParam query: Map<String, String>): ResponseEntity<List<Doctor>>

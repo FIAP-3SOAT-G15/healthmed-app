@@ -10,7 +10,7 @@ interface DoctorGateway {
 
     fun get(crm: String): Doctor
 
-    fun searchDoctorWithName(speciality: String): List<Doctor>
+    fun searchDoctorWithName(name: String): List<Doctor>
 
     fun searchDoctorWithSpeciality(speciality: String): List<Doctor>
 

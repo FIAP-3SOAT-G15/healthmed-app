@@ -13,8 +13,6 @@ class MedicalRecordService(
     private val medicalRecordGateway: MedicalRecordGateway,
     private val medicalAppointmentGateway: MedicalAppointmentGateway) : AppendInMedicalRecordUseCase {
 
-
-
     override fun append(content: String, appointmentNumber: String): MedicalAppointment {
         val appointment = medicalAppointmentGateway.findAppointment(appointmentNumber)
 

@@ -1,0 +1,577 @@
+openapi: 3.0.1
+info:
+    title: Health&Med MVP
+    description: Demo API para sistema de consultas médicas online
+    contact:
+        name: Grupo 15
+        url: http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com
+    version: 1.0.0
+servers:
+    - url: /
+paths:
+    /healthmed/patient/{document}:
+        put:
+            tags:
+                - patient-controller
+            summary: Atualizar um cadastro de um paciente
+            operationId: update
+            parameters:
+                - name: document
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PatientRequest"
+                required: true
+            responses:
+                "200":
+                    description: Operação bem-sucedida
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/Patient"
+    /healthmed/doctor/{crm}:
+        get:
+            tags:
+                - doctor-controller
+            operationId: get
+            parameters:
+                - name: crm
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/Doctor"
+        put:
+            tags:
+                - doctor-controller
+            summary: Atualizar um cadastro de um médico
+            operationId: update_1
+            parameters:
+                - name: crm
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DoctorRequest"
+                required: true
+            responses:
+                "200":
+                    description: Operação bem-sucedida
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/Doctor"
+    /healthmed/patient:
+        post:
+            tags:
+                - patient-controller
+            summary: Cria um cadastro de um paciente
+            operationId: create
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PatientRequest"
+                required: true
+            responses:
+                "200":
+                    description: Operação bem-sucedida
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/Patient"
+    /healthmed/medical-record/{appointmentNumber}/append:
+        post:
+            tags:
+                - medical-record-controller
+            operationId: appendAnnotations
+            parameters:
+                - name: appointmentNumber
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/MedicalRecordContentRequest"
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/MedicalAppointment"
+    /healthmed/medical-appointment/{document}/{crm}:
+        post:
+            tags:
+                - medical-appointment-by-patient-controller
+            operationId: scheduleAppointment
+            parameters:
+                - name: document
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                - name: crm
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TimeAndDateToScheduleRequest"
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/MedicalAppointment"
+    /healthmed/medical-appointment/{document}/cancel/{appointmentNumber}:
+        post:
+            tags:
+                - medical-appointment-by-patient-controller
+            operationId: cancelAppointment
+            parameters:
+                - name: document
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                - name: appointmentNumber
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/JustificationCancellationRequest"
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/MedicalAppointment"
+    /healthmed/medical-appointment/{crm}/reject/{appointmentNumber}:
+        post:
+            tags:
+                - medical-appointment-by-doctor-controller
+            operationId: rejectAppointment
+            parameters:
+                - name: crm
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                - name: appointmentNumber
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/MedicalAppointment"
+    /healthmed/medical-appointment/{crm}/cancel/{appointmentNumber}:
+        post:
+            tags:
+                - medical-appointment-by-doctor-controller
+            operationId: acceptAppointment
+            parameters:
+                - name: crm
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                - name: appointmentNumber
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/MedicalAppointment"
+    /healthmed/doctor:
+        post:
+            tags:
+                - doctor-controller
+            summary: Cria um cadastro de um médico
+            operationId: create_1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DoctorRequest"
+                required: true
+            responses:
+                "200":
+                    description: Operação bem-sucedida
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/Doctor"
+    /healthmed/doctor/{crm}/update-availability:
+        patch:
+            tags:
+                - doctor-controller
+            summary: Atualizar os horarios disponiveis do medico
+            operationId: updateAvailableTimes
+            parameters:
+                - name: crm
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/AvailableTimesRequest"
+                required: true
+            responses:
+                "200":
+                    description: Operação bem-sucedida
+                    content:
+                        '*/*':
+                            schema:
+                                $ref: "#/components/schemas/Doctor"
+    /healthmed/medical-appointment/{document}:
+        get:
+            tags:
+                - medical-appointment-by-patient-controller
+            operationId: getAllMyAppointments
+            parameters:
+                - name: document
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/MedicalAppointment"
+    /healthmed/medical-appointment/{crm}:
+        get:
+            tags:
+                - medical-appointment-by-doctor-controller
+            operationId: getAllMyAppointments_1
+            parameters:
+                - name: crm
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/MedicalAppointment"
+    /healthmed/doctor/search:
+        get:
+            tags:
+                - doctor-controller
+            operationId: search
+            parameters:
+                - name: query
+                  in: query
+                  required: true
+                  schema:
+                      type: object
+                      additionalProperties:
+                          type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        '*/*':
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/Doctor"
+components:
+    schemas:
+        PatientRequest:
+            type: object
+            properties:
+                document:
+                    type: string
+                    description: CPF
+                    example: "12345678900"
+                name:
+                    type: string
+                    description: Name
+                    example: Foo Bar
+                email:
+                    type: string
+                    description: Email
+                    example: foo_bar@gmail.com
+                phoneNumber:
+                    type: string
+                    description: Phone number
+                    example: "+5511999999999"
+                zipCode:
+                    type: string
+                    description: ZIP code
+                    example: "12345678"
+                address:
+                    type: string
+                    description: Address
+                    example: "123, Main St."
+        Patient:
+            required:
+                - address
+                - document
+                - email
+                - name
+                - phoneNumber
+                - zipCode
+            type: object
+            properties:
+                document:
+                    type: string
+                name:
+                    type: string
+                email:
+                    type: string
+                phoneNumber:
+                    type: string
+                zipCode:
+                    type: string
+                address:
+                    type: string
+        AvailablePeriodsRequest:
+            type: object
+            properties:
+                start:
+                    type: string
+                    description: Start time
+                    format: date-time
+                end:
+                    type: string
+                    description: End time
+                    format: date-time
+            description: Available slots
+            example:
+                MONDAY:
+                    - start: 2022-12-31T00:00:00
+                      end: 2022-12-31T23:59:59
+        AvailableTimesRequest:
+            type: object
+            properties:
+                slots:
+                    type: object
+                    additionalProperties:
+                        type: array
+                        description: Available slots
+                        example:
+                            MONDAY:
+                                - start: 2022-12-31T00:00:00
+                                  end: 2022-12-31T23:59:59
+                        items:
+                            $ref: "#/components/schemas/AvailablePeriodsRequest"
+                    description: Available slots
+                    example:
+                        MONDAY:
+                            - start: 2022-12-31T00:00:00
+                              end: 2022-12-31T23:59:59
+            description: Available times
+        DoctorRequest:
+            type: object
+            properties:
+                crm:
+                    type: string
+                    description: CRM
+                    example: "123456"
+                document:
+                    type: string
+                    description: CPF
+                    example: "28685216907"
+                specialty:
+                    type: string
+                    description: Specialty
+                    example: Cardiologist
+                name:
+                    type: string
+                    description: Name
+                    example: John Doe
+                email:
+                    type: string
+                    description: Email
+                    example: john_doe@gmail.com
+                phoneNumber:
+                    type: string
+                    description: Phone number
+                    example: "+5511999999999"
+                serviceZipCode:
+                    type: string
+                    description: Service ZIP code
+                    example: "12345678"
+                serviceAddress:
+                    type: string
+                    description: Service address
+                    example: "123, Main St."
+                availableTimes:
+                    $ref: "#/components/schemas/AvailableTimesRequest"
+                appointmentPrice:
+                    type: number
+                    description: Appointment price
+                    example: 100.0
+        AvailablePeriods:
+            required:
+                - end
+                - start
+            type: object
+            properties:
+                start:
+                    type: string
+                    format: date-time
+                end:
+                    type: string
+                    format: date-time
+        AvailableTimes:
+            required:
+                - slots
+            type: object
+            properties:
+                slots:
+                    type: object
+                    additionalProperties:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/AvailablePeriods"
+        Doctor:
+            required:
+                - appointmentPrice
+                - availableTimes
+                - crm
+                - document
+                - email
+                - name
+                - phoneNumber
+                - serviceAddress
+                - serviceZipCode
+                - specialty
+            type: object
+            properties:
+                crm:
+                    type: string
+                document:
+                    type: string
+                specialty:
+                    type: string
+                name:
+                    type: string
+                email:
+                    type: string
+                phoneNumber:
+                    type: string
+                serviceZipCode:
+                    type: string
+                serviceAddress:
+                    type: string
+                availableTimes:
+                    $ref: "#/components/schemas/AvailableTimes"
+                appointmentPrice:
+                    type: number
+        MedicalRecordContentRequest:
+            type: object
+            properties:
+                content:
+                    type: string
+                    description: Medical record content
+                    example: Patient has a fever
+        MedicalAppointment:
+            required:
+                - doctor
+                - estimatedTimeSpentInMinutes
+                - expectedStartTime
+                - patient
+                - status
+            type: object
+            properties:
+                number:
+                    type: integer
+                    format: int64
+                doctor:
+                    $ref: "#/components/schemas/Doctor"
+                patient:
+                    $ref: "#/components/schemas/Patient"
+                expectedStartTime:
+                    type: string
+                    format: date-time
+                estimatedTimeSpentInMinutes:
+                    type: integer
+                    format: int32
+                status:
+                    type: string
+                    enum:
+                        - SCHEDULED
+                        - CANCELED
+                        - ACCEPTED
+                        - REJECTED
+                        - FINISHED
+                statusChangedAt:
+                    type: string
+                    format: date-time
+                justificationCancellationByPatient:
+                    type: string
+        TimeAndDateToScheduleRequest:
+            type: object
+            properties:
+                scheduleAt:
+                    type: string
+                    description: scheduleAt
+                    format: date-time
+        JustificationCancellationRequest:
+            type: object
+            properties:
+                text:
+                    type: string
+                    description: Justification text
+                    example: I'm not feeling well
+    securitySchemes:
+        Bearer Authentication:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT

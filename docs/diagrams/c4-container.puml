@@ -1,0 +1,67 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+AddRelTag("async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DashedLine())
+AddRelTag("sync/async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DashedLine())
+
+LAYOUT_WITH_LEGEND()
+
+title Diagrama de Container (C4)
+
+Boundary(users, "Usuários") {
+    Person(doctor, "Médico", "Gerencia disponibilidade, confirma agendamentos, realiza consultas, solicita, acessa e adiciona dados em prontuários eletrônicos")
+    Person(patient, "Paciente", "Busca por médicos, solicita agendamentos, participa de consultas, gerencia seu próprio prontuário eletrônico")
+}
+
+System_Boundary(self_order_system, "Health&Med") {
+    Container(frontend, "Frontend", "Web/Mobile", "Aplicação web e/ou mobile de interface do usuário")
+
+    Container(api_gateway, "API Gateway", "AWS API Gateway", "BFF como ponto de entrada para requisições no sistema")
+
+    System_Boundary(user_service, "Usuário Service") {
+        Container(user_app, "Usuário API", "Spring Boot", "API para cadastro e busca de médicos e pacientes")
+        ContainerDb(user_db, "Usuário DB", "Postgres")
+    }
+
+    System_Boundary(booking_service, "Agendamento Service") {
+        Container(booking_app, "Agendamento API", "Spring Boot", "API para realização, confirmação e recusa de agendamentos")
+        ContainerDb(booking_db, "Agendamento DB", "Postgres")
+    }
+
+    System_Boundary(handbook_service, "Prontuário Service") {
+        Container(handbook_app, "Prontuário API", "Spring Boot", "API para gerenciamento de prontuários eletrônicos, documentos, e controle de acesso")
+        ContainerDb(handbook_db, "Prontuário BD", "DynamoDB")
+        Container(handbook_store, "Prontuário Store", "S3", "Cloud store, encriptografado, com ACL, e replicação para HA")
+    }
+}
+
+System_Ext(crm_system, "Serviço de CRM", "Expõe lista de médicos no CRM (de todos os estados)")
+System_Ext(kyc_system, "Serviço de Identidade", "Verifica identidade dos usuários")
+System_Ext(email_system, "Serviço de e-mail", "Envia e-mails para usuários do sistema (ex.: cadastro de médico verificado, consulta confirmada, acesso de prontuário concedido, etc")
+System_Ext(video_system, "Serviço de videoconferência", "Disponibiliza funcionalidade de video chamadas para realização de consultas online")
+
+Rel(users, frontend, "usam")
+Rel(email_system, users, "envia para", $tags="async")
+
+Rel(video_system, frontend, "disponibiliza serviço")
+Rel(frontend, api_gateway, "requests")
+Rel(frontend, handbook_store, "baixa/sobe arquivos")
+
+Rel(api_gateway, user_app, "requests")
+Rel(api_gateway, booking_app, "requests")
+Rel(api_gateway, handbook_app, "requests")
+
+Rel(user_app, user_db, "read/write", "JDBC")
+Rel(user_app, crm_system, "verifica CRM", "HTTP")
+Rel(user_app, kyc_system, "verifica identidade", "HTTP")
+Rel(user_app, email_system, "requests", "HTTP", $tags="async")
+
+Rel(booking_app, user_app, "requests", "HTTP")
+Rel(booking_app, booking_db, "read/write", "JDBC")
+Rel(booking_app, email_system, "requests", "HTTP", $tags="async")
+Rel(booking_app, video_system, "requests", "HTTP")
+
+Rel(handbook_app, handbook_db, "read/write", "JDBC")
+Rel(handbook_app, handbook_store, "read/write")
+
+@enduml
