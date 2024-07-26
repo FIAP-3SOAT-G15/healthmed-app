@@ -28,4 +28,4 @@ admin:
     access-token: ${ADMIN_ACCESS_TOKEN}
 
 server:
-    port: 8082
+    port: 8080

@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 module "ecr" {
   source  = "terraform-aws-modules/ecr/aws"
   version = "1.6.0"

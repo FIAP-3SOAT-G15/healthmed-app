@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - .github/workflows/deploy.yml
+            - 'k8s/**'
+    pull_request:
+        branches:
+            - main
+        paths:
+            - .github/workflows/deploy.yml
+            - 'k8s/**'
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./k8s
+        permissions:
+            id-token: write
+            contents: read
+            pull-requests: write
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: ${{ vars.AWS_IAM_ROLE }}
+                  aws-region: ${{ vars.AWS_REGION }}
+
+            - name: Update kubeconfig
+              #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+              run: aws eks update-kubeconfig --name ${{ vars.AWS_EKS_CLUSTER_NAME }} --region ${{ vars.AWS_REGION }}
+
+            - name: Deploy to EKS
+              #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+              run: kubectl apply -f .
