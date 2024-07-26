@@ -93,13 +93,7 @@ Architectural Decision Records (ADRs):
 
 ### Schema do BD do MVP
 
-[![Schema do BD do MVP](diagrams/db-schema.png)](diagrams/db-schema.png)
-
-### Diagramas de Estado
-
-#### Estados de Consulta
-
-[![Estados de Consulta](/docs/diagrams/appointment-states.png)](/docs/diagrams/appointment-states.png)
+[![Schema do BD do MVP](diagrams/db-schema.png)](docs/diagrams/db-schema.png)
 
 ## CI/CD
 

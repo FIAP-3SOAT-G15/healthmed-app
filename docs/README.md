@@ -180,12 +180,6 @@ Architectural Decision Records (ADRs):
 
 [![Schema do BD do MVP](diagrams/db-schema.png)](diagrams/db-schema.png)
 
-### Diagramas de Estado
-
-#### Estados de Consulta
-
-[![Estados de Consulta](diagrams/appointment-states.png)](diagrams/appointment-states.png)
-
 ## CI/CD
 
 Descrição dos workflows do GitHub Actions:

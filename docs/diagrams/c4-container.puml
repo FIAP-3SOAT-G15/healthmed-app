@@ -28,10 +28,10 @@ System_Boundary(self_order_system, "Health&Med") {
         ContainerDb(booking_db, "Agendamento DB", "Postgres")
     }
 
-    System_Boundary(handbook_service, "Prontuário Service") {
-        Container(handbook_app, "Prontuário API", "Spring Boot", "API para gerenciamento de prontuários eletrônicos, documentos, e controle de acesso")
-        ContainerDb(handbook_db, "Prontuário BD", "DynamoDB")
-        Container(handbook_store, "Prontuário Store", "S3", "Cloud store, encriptografado, com ACL, e replicação para HA")
+    System_Boundary(medical_record_service, "Prontuário Service") {
+        Container(medical_record_app, "Prontuário API", "Spring Boot", "API para gerenciamento de prontuários eletrônicos, documentos, e controle de acesso")
+        ContainerDb(medical_record_db, "Prontuário BD", "DynamoDB")
+        Container(medical_record_store, "Prontuário Store", "S3", "Cloud store, encriptografado, com ACL, e replicação para HA")
     }
 }
 
@@ -45,11 +45,11 @@ Rel(email_system, users, "envia para", $tags="async")
 
 Rel(video_system, frontend, "disponibiliza serviço")
 Rel(frontend, api_gateway, "requests")
-Rel(frontend, handbook_store, "baixa/sobe arquivos")
+Rel(frontend, medical_record_store, "baixa/sobe arquivos")
 
 Rel(api_gateway, user_app, "requests")
 Rel(api_gateway, booking_app, "requests")
-Rel(api_gateway, handbook_app, "requests")
+Rel(api_gateway, medical_record_app, "requests")
 
 Rel(user_app, user_db, "read/write", "JDBC")
 Rel(user_app, crm_system, "verifica CRM", "HTTP")
@@ -61,7 +61,7 @@ Rel(booking_app, booking_db, "read/write", "JDBC")
 Rel(booking_app, email_system, "requests", "HTTP", $tags="async")
 Rel(booking_app, video_system, "requests", "HTTP")
 
-Rel(handbook_app, handbook_db, "read/write", "JDBC")
-Rel(handbook_app, handbook_store, "read/write")
+Rel(medical_record_app, medical_record_db, "read/write", "JDBC")
+Rel(medical_record_app, medical_record_store, "read/write")
 
 @enduml
