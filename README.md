@@ -23,6 +23,17 @@
 
 Nosso MVP é uma versão simplificada para fins de demonstração dos requisitos atendidos durante o Hackathon. Compreende um monolito com um banco de dados relacional e uso de serviços serverless na AWS. Toda a infraestrutura descrita em Terraform e a imagem da aplicação são automatizados em nossas pipelines com GitHub Actions, que inclui verificação dos testes e análise estática no SonarCloud.
 
+O MVP inclui:
+
+- documentação abrangente, incluindo de DDD, diagramas C4, etc
+- 15 ADRs cobrindo requisitos não funcionais
+- pipelines para IaC com Terraform e deploy no Kubernetes
+- testes unitários e de integração com Cucumber
+- análise estática para qualidade e segurança
+- uso de EKS, RDS, S3, VPC, Cognito, ECR, KMS, SSM, etc.
+- estimativa de volumetria
+- setup para execução local (Docker Compose, Makefile, etc.)
+
 Projeto no SonarCloud: [https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app](https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app)
 
 Também criamos uma extensa documentação para suportar uma aplicação escalável e resiliente que atenda a todos os requisitos não funcionais.
@@ -93,7 +104,7 @@ Architectural Decision Records (ADRs):
 
 ### Schema do BD do MVP
 
-[![Schema do BD do MVP](diagrams/db-schema.png)](docs/diagrams/db-schema.png)
+[![Schema do BD do MVP](docs/diagrams/db-schema.png)](docs/diagrams/db-schema.png)
 
 ## CI/CD
 
