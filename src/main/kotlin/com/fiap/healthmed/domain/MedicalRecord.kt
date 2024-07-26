@@ -1,7 +1,7 @@
 package com.fiap.healthmed.domain
 
 data class MedicalRecord(
-    val number: Long?,
+    val number: Long? = null,
     val medicalAppointment: MedicalAppointment,
     val doctorCrm: String,
     val patientDocument: String,

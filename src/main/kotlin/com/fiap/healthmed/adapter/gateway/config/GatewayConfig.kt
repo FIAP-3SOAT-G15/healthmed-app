@@ -4,10 +4,7 @@ import com.fiap.healthmed.adapter.gateway.DoctorGateway
 import com.fiap.healthmed.adapter.gateway.MedicalAppointmentGateway
 import com.fiap.healthmed.adapter.gateway.MedicalRecordGateway
 import com.fiap.healthmed.adapter.gateway.PatientGateway
-import com.fiap.healthmed.adapter.gateway.impl.DoctorGatewayImpl
-import com.fiap.healthmed.adapter.gateway.impl.MedicalAppointmentGatewayImpl
-import com.fiap.healthmed.adapter.gateway.impl.MedicalRecordGatewayImpl
-import com.fiap.healthmed.adapter.gateway.impl.PatientGatewayImpl
+import com.fiap.healthmed.adapter.gateway.impl.*
 import com.fiap.healthmed.driver.database.persistence.jpa.DoctorJpaRepository
 import com.fiap.healthmed.driver.database.persistence.jpa.MedicalAppointmentJpaRepository
 import com.fiap.healthmed.driver.database.persistence.jpa.MedicalRecordJpaRepository
@@ -34,8 +31,8 @@ class GatewayConfig {
     }
 
     @Bean
-    fun createMedicalRecord(medicalJpaRepository: MedicalRecordJpaRepository): MedicalRecordGateway {
-        return MedicalRecordGatewayImpl(medicalJpaRepository)
+    fun createMedicalRecord(medicalJpaRepository: MedicalRecordJpaRepository, fileProvider: FileProvider): MedicalRecordGateway {
+        return MedicalRecordGatewayImpl(medicalJpaRepository, fileProvider)
     }
 
 }

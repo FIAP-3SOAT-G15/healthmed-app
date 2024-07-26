@@ -25,7 +25,8 @@ class ControllerExceptionHandler {
                 ErrorType.PATIENT_ALREADY_EXISTS,
                 ErrorType.DOCKER_ALREADY_EXISTS,
                 ErrorType.IMCOMPATIBLE_SCHEDULE,
-                ErrorType.UNAVAILABLE_TIME ->
+                ErrorType.UNAVAILABLE_TIME,
+                ErrorType.NO_MEDICAL_RECORDS, ->
                     ApiErrorResponseEntity(
                         ApiError(domainException.errorType.name, domainException.message),
                         HttpStatus.UNPROCESSABLE_ENTITY,
