@@ -30,6 +30,13 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v4
 
+#            - name: OpenAPI Generator
+#              uses: hatamiarash7/openapi-generator@v0.3.0
+#              with:
+#                  generator: openapi
+#                  openapi-file: docs/openapi.yaml
+#                  output-dir: .generated
+
             - name: Configure AWS Credentials
               uses: aws-actions/configure-aws-credentials@v4
               with:
@@ -63,5 +70,5 @@ jobs:
               run: exit 1
 
             - name: Terraform Apply
-              if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+              #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
               run: terraform apply -auto-approve -input=false

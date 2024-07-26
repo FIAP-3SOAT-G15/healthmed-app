@@ -8,6 +8,11 @@ variable "website_bucket_name" {
   default = "fiap-3soat-g15-healthmed"
 }
 
+variable "medical_record_bucket_name" {
+    type    = string
+    default = "fiap-3soat-g15-healthmed-medical-records"
+}
+
 variable "tags" {
   type = map(string)
   default = {
