@@ -21,7 +21,11 @@ class DoctorService(
     }
 
     override fun updateAvailableTime(crm: String, availableTimes: AvailableTimes): Doctor {
-        return doctorGateway.updateDoctorAvailableTimes(crm, availableTimes)
+        val doctor = get(crm)
+        val newDoctor = doctor.copy(
+            availableTimes = availableTimes
+        )
+        return doctorGateway.updateDoctor(newDoctor)
     }
 
     override fun search(query: Map<String, String>): List<Doctor> {

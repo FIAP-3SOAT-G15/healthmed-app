@@ -6,7 +6,7 @@ import com.fiap.healthmed.driver.web.request.TimeAndDateToScheduleRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/healthmed/medical-appointment/{document}")
+@RequestMapping("/healthmed/medical-appointment/patient/{document}")
 interface MedicalAppointmentByPatientApi {
 
     @PostMapping("/{crm}")

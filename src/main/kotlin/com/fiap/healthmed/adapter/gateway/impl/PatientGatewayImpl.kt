@@ -7,14 +7,16 @@ import com.fiap.healthmed.domain.errors.HealthMedException
 import com.fiap.healthmed.driver.database.persistence.jpa.PatientJpaRepository
 import com.fiap.healthmed.driver.database.persistence.mapper.PatientMapper
 import org.mapstruct.factory.Mappers
+import org.springframework.transaction.annotation.Transactional
 
-class PatientGatewayImpl(
+open class PatientGatewayImpl(
     private val patientJpaRepository: PatientJpaRepository,
 ) : PatientGateway {
 
     private val patientMapper: PatientMapper = Mappers.getMapper(PatientMapper::class.java)
 
 
+    @Transactional
     override fun createPatient(patient: Patient): Patient {
         val patientEntityOp = patientJpaRepository.findById(patient.document)
 

@@ -13,17 +13,16 @@ class MedicalAppointmentEntity(
     val number: Long?,
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medical_appointment_doctor_crm")
-    val doctor: DoctorEntity? = null,
+    val doctor: DoctorEntity,
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medical_appointment_patient_document")
-    val patient: PatientEntity? = null,
+    val patient: PatientEntity,
     @Column(name = "medical_appointment_expected_start_time")
     val expectedStartTime: LocalDateTime,
     @Column(name = "medical_appointment_estimated_time_spent_in_minutes")
     val estimatedTimeSpentInMinutes: Int,
     @Column(name = "medical_appointment_status")
-    @Enumerated(EnumType.STRING)
-    val status: MedicalAppointmentStatus,
+    val status: String,
     @Column(name = "medical_appointment_status_changed")
     val statusChangedAt: LocalDateTime?,
     @Column(name = "medical_appointment_justification_cancellation_by_patient")

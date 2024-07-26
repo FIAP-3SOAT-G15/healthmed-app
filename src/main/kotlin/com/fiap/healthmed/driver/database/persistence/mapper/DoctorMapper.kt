@@ -5,35 +5,51 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fiap.healthmed.domain.AvailableTimes
 import com.fiap.healthmed.domain.Doctor
 import com.fiap.healthmed.driver.database.persistence.entities.DoctorEntity
-import org.mapstruct.Mapper
-import org.mapstruct.Mapping
-import org.mapstruct.Named
-import org.springframework.stereotype.Component
 
 
-@Mapper(componentModel = "spring", uses = [ConvertAvailableTime::class])
 interface DoctorMapper {
 
-    @Mapping(source = "doctorAvailableTimes", target = "availableTimes", qualifiedByName = ["stringToAvailableTimes"])
-    fun toDomain(doctorEntity: DoctorEntity): Doctor
+    companion object {
 
-    @Mapping(source = "availableTimes", target = "doctorAvailableTimes", qualifiedByName = ["availableTimesToString"])
-    fun fromDomain(domain: Doctor): DoctorEntity
+        fun toDomain(doctorEntity: DoctorEntity): Doctor {
+            return Doctor(
+                crm = doctorEntity.crm,
+                name = doctorEntity.name,
+                email = doctorEntity.email,
+                document = doctorEntity.document,
+                appointmentPrice = doctorEntity.appointmentPrice,
+                specialty = doctorEntity.specialty,
+                phoneNumber = doctorEntity.phoneNumber,
+                availableTimes = convertAvailable(doctorEntity.doctorAvailableTimes),
+                serviceAddress = doctorEntity.serviceAddress,
+                serviceZipCode = doctorEntity.serviceZipCode,
+            )
+        }
 
-}
+        fun fromDomain(domain: Doctor): DoctorEntity {
+            return DoctorEntity(
+                crm = domain.crm,
+                name = domain.name,
+                email = domain.email,
+                document = domain.document,
+                appointmentPrice = domain.appointmentPrice,
+                specialty = domain.specialty,
+                phoneNumber = domain.phoneNumber,
+                serviceAddress = domain.serviceAddress,
+                serviceZipCode = domain.serviceZipCode,
+                doctorAvailableTimes = convertAvailable(domain.availableTimes),
+            )
+        }
 
-@Component
-class ConvertAvailableTime {
+        fun convertAvailable(availableTimes: AvailableTimes): String {
+            val mapper = ObjectMapper().registerModule(JavaTimeModule());
+            return mapper.writeValueAsString(availableTimes);
+        }
 
-    @Named("availableTimesToString")
-    fun convertAvailable(availableTimes: AvailableTimes): String {
-        val mapper = ObjectMapper().registerModule(JavaTimeModule());
-        return mapper.writeValueAsString(availableTimes);
+        fun convertAvailable(availableTimes: String): AvailableTimes {
+            val mapper = ObjectMapper().registerModule(JavaTimeModule());
+            return mapper.readValue(availableTimes, AvailableTimes::class.java);
+        }
     }
 
-    @Named("stringToAvailableTimes")
-    fun convertAvailable(availableTimes: String): AvailableTimes {
-        val mapper = ObjectMapper().registerModule(JavaTimeModule());
-        return mapper.readValue(availableTimes, AvailableTimes::class.java);
-    }
 }

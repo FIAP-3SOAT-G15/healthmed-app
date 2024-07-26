@@ -9,11 +9,11 @@ class MedicalRecordEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medical_record_number")
     val number: Long?,
-    @Column(name = "medical_record_medical_appointment_number")
-    val medicalAppointmentNumber: Long,
+    @JoinColumn(name = "medical_record_medical_appointment_number")
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "medical_record_doctor_crm")
-    val doctor: DoctorEntity? = null,
+    val medicalAppointmentNumber: MedicalAppointmentEntity,
+    @Column(name = "medical_record_doctor_crm")
+    val doctorCrm: String,
     @Column(name = "medical_record_patient_document")
     val patientDocument: String,
     @Column(name = "medical_record_provider")

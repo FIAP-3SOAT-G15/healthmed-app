@@ -22,7 +22,7 @@ class MedicalRecordService(
             MedicalRecord(
                 medicalAppointment = appointment,
                 doctorCrm = appointment.doctor.crm,
-                patientDocument = appointment.patientDocument.document,
+                patientDocument = appointment.patient.document,
                 fileLocation = LOCATION_FILES,
                 content = content,
                 fileName = String.format("%s-%s.txt", appointmentNumber, appointment.doctor.crm)

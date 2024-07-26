@@ -14,8 +14,6 @@ class MedicalRecordGatewayImpl(
     private val medicalRecordJpaRepository: MedicalRecordJpaRepository,
     private val fileProvider: FileProvider) : MedicalRecordGateway {
 
-    private val mapper = Mappers.getMapper(MedicalRecordMapper::class.java)
-
 
     override fun sendFileProvider(record: MedicalRecord): MedicalRecord {
         record.content?.let {
@@ -31,8 +29,8 @@ class MedicalRecordGatewayImpl(
     }
 
     override fun persistMetadata(record: MedicalRecord): MedicalRecord {
-        return medicalRecordJpaRepository.save(mapper.fromDomain(record))
-            .let(mapper::toDomain)
+        return medicalRecordJpaRepository.save(MedicalRecordMapper.fromDomain(record))
+            .let(MedicalRecordMapper::toDomain)
     }
 }
 
