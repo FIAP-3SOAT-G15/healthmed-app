@@ -11,7 +11,6 @@ import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import io.restassured.response.Response
 import org.assertj.core.api.Assertions.assertThat
-import org.hamcrest.CoreMatchers.equalTo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 
@@ -59,17 +58,8 @@ class RegisterDoctorIntegrationTest: IntegrationTest() {
         response
             .then()
             .statusCode(HttpStatus.OK.value())
-            .body(
-                "crm", equalTo(doctorRequest.crm),
-                "document", equalTo(doctorRequest.document),
-                "specialty", equalTo(doctorRequest.specialty),
-                "name", equalTo(doctorRequest.name),
-                "email", equalTo(doctorRequest.email),
-                "phoneNumber", equalTo(doctorRequest.phoneNumber),
-                "serviceZipCode", equalTo(doctorRequest.serviceZipCode),
-                "serviceAddress", equalTo(doctorRequest.serviceAddress),
-                "availableTimes", equalTo(doctorRequest.availableTimes.toDomain()),
-                "appointmentPrice", equalTo(doctorRequest.appointmentPrice),
-            )
+            .extract()
+            .`as`(Doctor::class.java)
+            .also { assertThat(it).isEqualTo(doctorRequest.toDomain()) }
     }
 }
