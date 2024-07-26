@@ -3,6 +3,7 @@ package com.fiap.healthmed.it
 import com.fiap.healthmed.adapter.gateway.PatientGateway
 import com.fiap.healthmed.domain.Patient
 import com.fiap.healthmed.driver.web.request.PatientRequest
+import com.fiap.healthmed.driver.web.request.toDomain
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
@@ -10,7 +11,6 @@ import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import io.restassured.response.Response
 import org.assertj.core.api.Assertions.assertThat
-import org.hamcrest.CoreMatchers.equalTo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 
@@ -54,13 +54,10 @@ class RegisterPatientIntegrationTest: IntegrationTest() {
         response
             .then()
             .statusCode(HttpStatus.OK.value())
-            .body(
-                "document", equalTo(patientRequest.document),
-                "name", equalTo(patientRequest.name),
-                "email", equalTo(patientRequest.email),
-                "phoneNumber", equalTo(patientRequest.phoneNumber),
-                "zipCode", equalTo(patientRequest.zipCode),
-                "address", equalTo(patientRequest.address),
-            )
+            .extract()
+            .`as`(Patient::class.java)
+            .also {
+                assertThat(it).isEqualTo(patientRequest.toDomain())
+            }
     }
 }

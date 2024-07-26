@@ -42,13 +42,13 @@ interface DoctorMapper {
         }
 
         fun convertAvailable(availableTimes: AvailableTimes): String {
-            val mapper = ObjectMapper().registerModule(JavaTimeModule());
-            return mapper.writeValueAsString(availableTimes);
+            val mapper = ObjectMapper().registerModule(JavaTimeModule())
+            return mapper.writeValueAsString(availableTimes)
         }
 
         fun convertAvailable(availableTimes: String): AvailableTimes {
-            val mapper = ObjectMapper().registerModule(JavaTimeModule());
-            return mapper.readValue(availableTimes, AvailableTimes::class.java);
+            val mapper = ObjectMapper().registerModule(JavaTimeModule())
+            return mapper.readValue(availableTimes, AvailableTimes::class.java)
         }
     }
 
