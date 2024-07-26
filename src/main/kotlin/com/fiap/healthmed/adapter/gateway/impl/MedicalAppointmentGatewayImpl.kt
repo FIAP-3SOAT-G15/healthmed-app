@@ -6,13 +6,13 @@ import com.fiap.healthmed.domain.errors.ErrorType
 import com.fiap.healthmed.domain.errors.HealthMedException
 import com.fiap.healthmed.driver.database.persistence.jpa.MedicalAppointmentJpaRepository
 import com.fiap.healthmed.driver.database.persistence.mapper.MedicalAppointmentMapper
-import org.mapstruct.factory.Mappers
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
-class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository: MedicalAppointmentJpaRepository) :
+open class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository: MedicalAppointmentJpaRepository) :
 
     MedicalAppointmentGateway {
-    private val mapper = Mappers.getMapper(MedicalAppointmentMapper::class.java)
+
 
     override fun updateAppointmentStatus(
         appointmentNumber: String,
@@ -23,12 +23,12 @@ class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository:
             status = appointmentStatus,
             justificationCancellationByPatient = justification
         )
-        medicalAppointmentJpaRepository.save(mapper.fromDomain(appointment))
+        medicalAppointmentJpaRepository.save(MedicalAppointmentMapper.fromDomain(appointment))
         return appointment
     }
 
     override fun findAppointment(appointmentNumber: String): MedicalAppointment {
-        return medicalAppointmentJpaRepository.findById(appointmentNumber.toLong()).map(mapper::toDomain).orElseThrow {
+        return medicalAppointmentJpaRepository.findById(appointmentNumber.toLong()).map(MedicalAppointmentMapper::toDomain).orElseThrow {
             HealthMedException(
                 errorType = ErrorType.APPOINTMENT_NOT_FOUND,
                 message = "Appointment [$appointmentNumber] not found"
@@ -44,6 +44,7 @@ class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository:
         return updateAppointmentStatus(appointmentNumber, MedicalAppointmentStatus.REJECTED)
     }
 
+    @Transactional
     override fun createAppointment(doctor: Doctor, patient: Patient, scheduleAt: LocalDateTime): MedicalAppointment {
         return medicalAppointmentJpaRepository.save(
             MedicalAppointment(
@@ -53,17 +54,17 @@ class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository:
                 expectedStartTime = scheduleAt,
                 estimatedTimeSpentInMinutes = ESTIMATED_MEDICAL_APPOINTMENT_DURATION_IN_MINUTES,
                 statusChangedAt = LocalDateTime.now(),
-            ).let { mapper.fromDomain(it) }
-        ).let(mapper::toDomain)
+            ).let { MedicalAppointmentMapper.fromDomain(it) }
+        ).let(MedicalAppointmentMapper::toDomain)
     }
 
 
     override fun findAppointmentsByPatient(patientDocument: String): List<MedicalAppointment> {
-        return medicalAppointmentJpaRepository.findByPatientDocument(patientDocument).map(mapper::toDomain)
+        return medicalAppointmentJpaRepository.findByPatientDocument(patientDocument).map(MedicalAppointmentMapper::toDomain)
     }
 
     override fun findAppointmentsByDoctor(crm: String): List<MedicalAppointment> {
-        return medicalAppointmentJpaRepository.findByDoctorCrm(crm).map(mapper::toDomain)
+        return medicalAppointmentJpaRepository.findByDoctorCrm(crm).map(MedicalAppointmentMapper::toDomain)
     }
 
     override fun findAppointmentsByTimeAndDoctor(
@@ -75,7 +76,7 @@ class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository:
             crm = crm,
             start = startTime,
             end = endTime
-        ).map(mapper::toDomain)
+        ).map(MedicalAppointmentMapper::toDomain)
     }
 
     override fun cancelAppointment(appointmentNumber: String, justification: String): MedicalAppointment {

@@ -9,13 +9,13 @@ import com.fiap.healthmed.driver.database.persistence.entities.DoctorEntity
 import com.fiap.healthmed.driver.database.persistence.jpa.DoctorJpaRepository
 import com.fiap.healthmed.driver.database.persistence.mapper.DoctorMapper
 import org.mapstruct.factory.Mappers
+import org.springframework.transaction.annotation.Transactional
 
-class DoctorGatewayImpl(
+open class DoctorGatewayImpl(
     private val doctorJpaRepository: DoctorJpaRepository,
 ) : DoctorGateway {
 
-    private val doctorMapper: DoctorMapper = Mappers.getMapper(DoctorMapper::class.java)
-
+    @Transactional
     override fun createDoctor(doctor: Doctor): Doctor {
         getByCrm(doctor.crm)?.let {
             throw HealthMedException(
@@ -24,31 +24,21 @@ class DoctorGatewayImpl(
             )
         }
 
-        val doctorEntity = doctorMapper.fromDomain(doctor)
+        val doctorEntity = DoctorMapper.fromDomain(doctor)
         val savedEntity = doctorJpaRepository.save(doctorEntity)
-        return doctorMapper.toDomain(savedEntity)
+        return DoctorMapper.toDomain(savedEntity)
     }
 
+    @Transactional
     override fun updateDoctor(doctor: Doctor): Doctor {
         getByCrm(doctor.crm)
 
-        val updatedEntity = doctorJpaRepository.save(doctorMapper.fromDomain(doctor))
-        return doctorMapper.toDomain(updatedEntity)
+        val updatedEntity = doctorJpaRepository.save(DoctorMapper.fromDomain(doctor))
+        return DoctorMapper.toDomain(updatedEntity)
     }
-
-    override fun updateDoctorAvailableTimes(crm: String, availableTimes: AvailableTimes): Doctor {
-        val doctorEntity: DoctorEntity = getByCrm(crm) ?: throw HealthMedException(
-            errorType = ErrorType.DOCTOR_NOT_FOUND,
-            message = "Doctor with CRM [$crm] not found, nt",
-        )
-
-        val updatedEntity = doctorJpaRepository.save(doctorEntity)
-        return doctorMapper.toDomain(updatedEntity)
-    }
-
 
     override fun get(crm: String): Doctor {
-        return getByCrm(crm)?.let(doctorMapper::toDomain)
+        return getByCrm(crm)?.let(DoctorMapper::toDomain)
             ?: throw HealthMedException(
                 errorType = ErrorType.DOCTOR_NOT_FOUND,
                 message = "Doctor with CRM [$crm] not found, nt",
@@ -57,19 +47,19 @@ class DoctorGatewayImpl(
 
     override fun searchDoctorWithName(name: String): List<Doctor> {
         return doctorJpaRepository.findByNameContains(name).map {
-            doctorMapper.toDomain(it)
+            DoctorMapper.toDomain(it)
         }
     }
 
     override fun searchDoctorWithSpeciality(speciality: String): List<Doctor> {
         return doctorJpaRepository.findBySpecialty(speciality).map {
-            doctorMapper.toDomain(it)
+            DoctorMapper.toDomain(it)
         }
     }
 
     override fun searchDoctorWithNameAndSpeciality(speciality: String, name: String): List<Doctor> {
-        return doctorJpaRepository.findByNameContainsAndSpecialty(speciality, name).map {
-            doctorMapper.toDomain(it)
+        return doctorJpaRepository.findByNameContainsAndSpecialty(name, speciality).map {
+            DoctorMapper.toDomain(it)
         }
     }
 

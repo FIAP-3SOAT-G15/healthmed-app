@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
-@RequestMapping("/healthmed/medical-appointment/{crm}")
+@RequestMapping("/healthmed/medical-appointment/doctor/{crm}")
 interface MedicalAppointmentByDoctorApi {
 
     @GetMapping
@@ -19,7 +19,7 @@ interface MedicalAppointmentByDoctorApi {
         @PathVariable appointmentNumber: String,
     ): ResponseEntity<MedicalAppointment>
 
-    @PostMapping("/cancel/{appointmentNumber}")
+    @PostMapping("/accept/{appointmentNumber}")
     fun acceptAppointment(
         @PathVariable crm: String,
         @PathVariable appointmentNumber: String,
