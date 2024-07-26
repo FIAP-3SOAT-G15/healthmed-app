@@ -54,19 +54,20 @@ class DoctorServiceTest {
             mapOf(
                 DayOfWeek.TUESDAY to listOf(
                     AvailablePeriods(
-                        start = LocalDateTime.of(2024, 7, 26, 9, 0),
-                        end = LocalDateTime.of(2024, 7, 26, 17, 0)
+                        start = "09:00",
+                        end = "17:00"
                     )
                 )
             )
         )
         val updatedDoctor = doctor.copy(availableTimes = newAvailableTimes)
-        every { doctorGateway.updateDoctorAvailableTimes(crm, newAvailableTimes) } returns updatedDoctor
+        every { doctorGateway.get(any()) } returns doctor
+        every { doctorGateway.updateDoctor(any(Doctor::class)) } returns updatedDoctor
 
         val result = doctorService.updateAvailableTime(crm, newAvailableTimes)
 
         assertEquals(updatedDoctor, result)
-        verify { doctorGateway.updateDoctorAvailableTimes(crm, newAvailableTimes) }
+        verify { doctorGateway.updateDoctor(updatedDoctor) }
     }
 
     @Test

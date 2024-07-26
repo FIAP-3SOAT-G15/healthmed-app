@@ -9,8 +9,8 @@ import java.time.LocalDateTime
 
 fun createAvailableTimesRequest(): AvailableTimesRequest {
     val availablePeriods = AvailableTimesRequest.AvailablePeriodsRequest(
-        start = LocalDateTime.of(2024, 7, 26, 9, 0),
-        end = LocalDateTime.of(2024, 7, 26, 17, 0)
+        start = "09:00",
+        end = "17:00"
     )
 
     return AvailableTimesRequest(
