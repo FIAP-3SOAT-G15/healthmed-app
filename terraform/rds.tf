@@ -63,7 +63,7 @@ module "rds_params" {
 }
 
 resource "aws_iam_policy" "rds_secrets_read_only_policy" {
-    name = "HealthmedRDSSecretsReadOnlyPolicy"
+    name = "HealthMedRDSSecretsReadOnlyPolicy"
 
     policy = jsonencode({
         Version = "2012-10-17"
@@ -81,7 +81,7 @@ resource "aws_iam_policy" "rds_secrets_read_only_policy" {
 }
 
 resource "aws_iam_policy" "rds_params_read_only_policy" {
-    name = "HealthmedRDSParamsReadOnlyPolicy"
+    name = "HealthMedRDSParamsReadOnlyPolicy"
 
     policy = jsonencode({
         Version = "2012-10-17"
