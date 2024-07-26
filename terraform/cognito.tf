@@ -28,6 +28,12 @@ resource "aws_cognito_user_pool" "user_pool" {
         required            = false
     }
 
+    lifecycle {
+        ignore_changes = [
+            schema
+        ]
+    }
+
 }
 
 resource "aws_cognito_user_group" "doctor" {
