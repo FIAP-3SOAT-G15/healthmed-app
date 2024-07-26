@@ -5,6 +5,21 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 data class AvailableTimes(val slots: Map<DayOfWeek, List<AvailablePeriods>>) {
+    fun canAccept(scheduleAt: LocalDateTime): Boolean {
+        val dayOfWeek = scheduleAt.dayOfWeek
+        val startRequest = scheduleAt;
+        val endRequest = scheduleAt.plusMinutes(ESTIMATED_MEDICAL_APPOINTMENT_DURATION_IN_MINUTES.toLong());
+
+        val periods = slots[dayOfWeek] ?: emptyList()
+
+        return periods.any { period ->
+
+            (startRequest.isAfter(period.start) || startRequest.isEqual(period.start))
+                && (endRequest.isBefore(period.end) || endRequest.isEqual(period.end))
+
+        }
+
+    }
 
     data class AvailablePeriods(val start: LocalDateTime, val end: LocalDateTime) {
         init {

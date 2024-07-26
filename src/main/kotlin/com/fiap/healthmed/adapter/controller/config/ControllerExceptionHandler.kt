@@ -15,10 +15,20 @@ class ControllerExceptionHandler {
         val apiErrorResponseEntity: ApiErrorResponseEntity =
             when (domainException.errorType) {
                 ErrorType.APPOINTMENT_NOT_FOUND,
-                ErrorType.DOCTOR_NOT_FOUND ->
+                ErrorType.DOCTOR_NOT_FOUND,
+                ErrorType.PATIENT_NOT_FOUND ->
                     ApiErrorResponseEntity(
                         ApiError(domainException.errorType.name, domainException.message),
                         HttpStatus.NOT_FOUND,
+                    )
+
+                ErrorType.PATIENT_ALREADY_EXISTS,
+                ErrorType.DOCKER_ALREADY_EXISTS,
+                ErrorType.IMCOMPATIBLE_SCHEDULE,
+                ErrorType.UNAVAILABLE_TIME ->
+                    ApiErrorResponseEntity(
+                        ApiError(domainException.errorType.name, domainException.message),
+                        HttpStatus.UNPROCESSABLE_ENTITY,
                     )
 
                 else ->
