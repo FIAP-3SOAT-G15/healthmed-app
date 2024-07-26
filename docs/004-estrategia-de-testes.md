@@ -13,7 +13,7 @@ Adotaremos uma abordagem de testes baseada na pirâmide de testes, que inclui:
 - testes end-to-end
 - testes de performance / carga (ex.: usando Gatling)
 
-Os testes unitários e de integração serão executados nas pipelines de CI, e um quality gate de 80% será definido (com o SonarQube) como requisito. BDD também será utilizado.
+Os testes unitários e de integração serão executados nas pipelines de CI, e um quality gate de 80% será definido (com o Sonar) como requisito. BDD também será utilizado.
 
 - Implementação
 Testes Unitários:

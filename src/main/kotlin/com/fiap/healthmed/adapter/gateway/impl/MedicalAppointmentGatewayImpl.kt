@@ -48,7 +48,7 @@ class MedicalAppointmentGatewayImpl(private val medicalAppointmentJpaRepository:
         return medicalAppointmentJpaRepository.save(
             MedicalAppointment(
                 doctor = doctor,
-                patientDocument = patient,
+                patient = patient,
                 status = MedicalAppointmentStatus.SCHEDULED,
                 expectedStartTime = scheduleAt,
                 estimatedTimeSpentInMinutes = ESTIMATED_MEDICAL_APPOINTMENT_DURATION_IN_MINUTES,

@@ -2,9 +2,9 @@
 
 > Acesse o [website](http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com) da nossa documentação! ✨
 >
-> Publicamos nossa documentação automaticamente em nosso [website]((http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com)). Lá você encontrará todas as informações, documentos e diagramas a respeito da nossa documentação e do nosso MVP de uma forma intuituva, agradável, e indexada, permitindo buscas eficientes. Boa leitura!
+> Publicamos nossa documentação automaticamente em nosso [website](http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com). Lá você encontrará todas as informações, documentos e diagramas a respeito da nossa documentação e do nosso MVP de uma forma intuituva, agradável, e indexada, permitindo buscas eficientes. Boa leitura!
 
-Grupo 15:
+**Grupo 15:**
 
 - Bleno Humberto Claus
 - Giovanni Di Luca Evangelista
@@ -21,9 +21,9 @@ Grupo 15:
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=coverage)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
 
-Nosso MVP é uma versão simplificada para fins de demonstração dos requisitos atendidos durante o Hackathon. Compreende um monolito com um banco de dados relacional e uso de serviços serverless na AWS. Toda a infraestrutura descrita em Terraform e a imagem da aplicação são automatizados em nossas pipelines com GitHub Actions, que inclui verificação dos testes e análise estática no SonarQube.
+Nosso MVP é uma versão simplificada para fins de demonstração dos requisitos atendidos durante o Hackathon. Compreende um monolito com um banco de dados relacional e uso de serviços serverless na AWS. Toda a infraestrutura descrita em Terraform e a imagem da aplicação são automatizados em nossas pipelines com GitHub Actions, que inclui verificação dos testes e análise estática no Sonar.
 
-Projeto no SonarCloud: https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app
+Projeto no SonarCloud: [https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app](https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app)
 
 Também criamos uma extensa documentação para suportar uma aplicação escalável e resiliente que atenda a todos os requisitos não funcionais.
 
@@ -44,6 +44,12 @@ Para viabilizar o desenvolvimento de um sistema que esteja em conformidade com a
 - [Glossário Ubíquo](/docs/ddd.md#glossario-ubiquo)
 - [Storytelling](/docs/ddd.md#storytelling)
 - [Event Storming](/docs/ddd.md#event-storming)
+
+## Volumetria Estimada
+
+- **usuários:** 20.000 usuários simultâneos usando em horários de pico sem problemas na experiência do usuário.
+- **consultas:** 10.000 consultas diárias (2 consultas x 5000 médicos x dia), cada consulta gerando um link de reunião online com duração padrão de 50 minutos, suportando centenas de sessões simultâneas.
+- **prontuário eletrônico:** milhões de documentos variados, de até 100 MB por arquivo.
 
 ## Decisões de Arquitetura
 
@@ -134,4 +140,18 @@ mvn clean verify -DskipITs=false
 
 ```
 mvn antrun:run@ktlint-format
+```
+
+## OpenAPI (Swagger)
+
+Acesse localmente:
+
+- UI: [http://localhost:8080/swagger-ui/index.html]()
+- JSON: [http://localhost:8080/v3/api-docs]() ([baixar](docs/openapi.json))
+- YAML: [http://localhost:8080/v3/api-docs.yaml]() ([baixar](docs/openapi.yaml))
+
+Geração da documentação:
+
+```
+mvn -B verify -DskipOpenAPIGen=false
 ```

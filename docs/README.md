@@ -2,7 +2,7 @@
 
 <img style="float: left; max-width: 50%;" src="cover.png">
 
-Grupo 15:
+**Grupo 15:**
 
 - Bleno Humberto Claus
 - Giovanni Di Luca Evangelista
@@ -15,9 +15,9 @@ Grupo 15:
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=coverage)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
 
-Nosso MVP é uma versão simplificada para fins de demonstração dos requisitos atendidos durante o Hackathon. Compreende um monolito com um banco de dados relacional e uso de serviços serverless na AWS. Toda a infraestrutura descrita em Terraform e a imagem da aplicação são automatizados em nossas pipelines com GitHub Actions, que inclui verificação dos testes e análise estática no SonarQube.
+Nosso MVP é uma versão simplificada para fins de demonstração dos requisitos atendidos durante o Hackathon. Compreende um monolito com um banco de dados relacional e uso de serviços serverless na AWS. Toda a infraestrutura descrita em Terraform e a imagem da aplicação são automatizados em nossas pipelines com GitHub Actions, que inclui verificação dos testes e análise estática no Sonar.
 
-Projeto no SonarCloud: https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app
+Projeto no SonarCloud: [https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app](https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app)
 
 Também criamos uma extensa documentação para suportar uma aplicação escalável e resiliente que atenda a todos os requisitos não funcionais.
 
@@ -123,6 +123,18 @@ Itens adicionais que serão diferenciais para a classificação dos grupos:
 - Documentação abrangente de todos os componentes e níveis da solução.
 - Automatização do processo de gerenciamento e alteração de infraestrutura.
 
+## DDD
+
+- [Glossário Ubíquo](ddd.md#glossario-ubiquo)
+- [Storytelling](ddd.md#storytelling)
+- [Event Storming](ddd.md#event-storming)
+
+## Volumetria Estimada
+
+- **usuários:** 20.000 usuários simultâneos usando em horários de pico sem problemas na experiência do usuário.
+- **consultas:** 10.000 consultas diárias (2 consultas x 5000 médicos x dia), cada consulta gerando um link de reunião online com duração padrão de 50 minutos, suportando centenas de sessões simultâneas.
+- **prontuário eletrônico:** milhões de documentos variados, de até 100 MB por arquivo.
+
 ## Decisões de Arquitetura
 
 1. [Infraestrutura](001-infraestrutura.md)
@@ -206,4 +218,18 @@ mvn clean verify -DskipITs=false
 
 ```
 mvn antrun:run@ktlint-format
+```
+
+## OpenAPI (Swagger)
+
+Acesse localmente:
+
+- UI: [http://localhost:8080/swagger-ui/index.html]()
+- JSON: [http://localhost:8080/v3/api-docs]() ([baixar](openapi.json))
+- YAML: [http://localhost:8080/v3/api-docs.yaml]() ([baixar](openapi.yaml))
+
+Geração da documentação:
+
+```
+mvn -B verify -DskipOpenAPIGen=false
 ```

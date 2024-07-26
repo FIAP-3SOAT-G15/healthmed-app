@@ -12,7 +12,7 @@ Utilizaremos Amazon Aurora com PostgreSQL para os serviços de cadastro e agenda
 
 ### Positivas
 
-### Amazon Aurora (PostgreSQL):
+#### Amazon Aurora (PostgreSQL):
 
 - melhor custo-benefício em comparação com RDS de acordo com a calculadora de custo da AWS.
 - alta disponibilidade e desempenho com replicação automática.
@@ -20,7 +20,7 @@ Utilizaremos Amazon Aurora com PostgreSQL para os serviços de cadastro e agenda
 - ACID.
 - indexes, sharding, e outras opções para performance.
 
-### Amazon DynamoDB:
+#### Amazon DynamoDB:
 
 - escalabilidade horizontal automática.
 - baixa latência e alta performance.

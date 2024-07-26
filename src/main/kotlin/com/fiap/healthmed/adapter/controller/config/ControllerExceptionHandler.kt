@@ -23,7 +23,7 @@ class ControllerExceptionHandler {
                     )
 
                 ErrorType.PATIENT_ALREADY_EXISTS,
-                ErrorType.DOCKER_ALREADY_EXISTS,
+                ErrorType.DOCTOR_ALREADY_EXISTS,
                 ErrorType.IMCOMPATIBLE_SCHEDULE,
                 ErrorType.UNAVAILABLE_TIME,
                 ErrorType.NO_MEDICAL_RECORDS, ->
