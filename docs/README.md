@@ -15,7 +15,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=FIAP-3SOAT-G15_healthmed-app&metric=coverage)](https://sonarcloud.io/summary/new_code?id=FIAP-3SOAT-G15_healthmed-app)
 
-Nosso MVP é uma versão simplificada para fins de demonstração dos requisitos atendidos durante o Hackathon. Compreende um monolito com um banco de dados relacional e uso de serviços serverless na AWS. Toda a infraestrutura descrita em Terraform e a imagem da aplicação são automatizados em nossas pipelines com GitHub Actions, que inclui verificação dos testes e análise estática no Sonar.
+Nosso MVP é uma versão simplificada para fins de demonstração dos requisitos atendidos durante o Hackathon. Compreende um monolito com um banco de dados relacional e uso de serviços serverless na AWS. Toda a infraestrutura descrita em Terraform e a imagem da aplicação são automatizados em nossas pipelines com GitHub Actions, que inclui verificação dos testes e análise estática no SonarCloud.
 
 Projeto no SonarCloud: [https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app](https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app)
 
@@ -106,7 +106,8 @@ Os grupos deverão entregar o seguinte:
 
 #### Demonstração do MVP
 
-- Aplicação executando na nuvem, os itens de 1 a 6 dos requisitos funcionais, contemplando:
+Aplicação executando na nuvem, os itens de 1 a 6 dos requisitos funcionais, contemplando:
+
   - Autenticação do Usuário (Médico)
   - Cadastro/Edição de Horários Disponíveis (Médico)
   - Aceite ou Recusa de Consultas Médicas (Médico)
@@ -137,6 +138,8 @@ Itens adicionais que serão diferenciais para a classificação dos grupos:
 
 ## Decisões de Arquitetura
 
+Architectural Decision Records (ADRs):
+
 1. [Infraestrutura](001-infraestrutura.md)
 2. [Microserviços](002-microservicos.md)
 3. [Bancos de dados](003-bancos-de-dados.md)
@@ -159,27 +162,29 @@ Itens adicionais que serão diferenciais para a classificação dos grupos:
 
 [![Diagrama de Contexto C4](diagrams/c4-context.png)](diagrams/c4-context.png)
 
+[Baixar .puml](diagrams/c4-context.puml)
+
 ### Diagrama de Container C4
 
 [![Diagrama de Container C4](diagrams/c4-container.png)](diagrams/c4-container.png)
 
-### Diagrama de Infraestrutura em Nuvem
+[Baixar .puml](diagrams/c4-container.puml)
+
+### Diagrama de Infraestrutura
 
 [![Diagrama de Infraestrutura](diagrams/infra-diagram.png)](diagrams/infra-diagram.png)
 
-### Diagramas de Entidade-Relacionamento
+[Baixar .excalidraw](diagrams/infra.excalidraw)
 
-TODO
+### Schema do BD do MVP
+
+[![Schema do BD do MVP](diagrams/db-schema.png)](diagrams/db-schema.png)
 
 ### Diagramas de Estado
 
 #### Estados de Consulta
 
 [![Estados de Consulta](diagrams/appointment-states.png)](diagrams/appointment-states.png)
-
-### Diagramas de Sequência
-
-TODO
 
 ## CI/CD
 
@@ -196,7 +201,7 @@ Descrição dos workflows do GitHub Actions:
 docker compose up
 ```
 
-### Mappers
+### Mappers (MapStruct)
 
 ```
 mvn clean compile
@@ -225,11 +230,34 @@ mvn antrun:run@ktlint-format
 Acesse localmente:
 
 - UI: [http://localhost:8080/swagger-ui/index.html]()
-- JSON: [http://localhost:8080/v3/api-docs]() ([baixar](openapi.json))
-- YAML: [http://localhost:8080/v3/api-docs.yaml]() ([baixar](openapi.yaml))
+- JSON: [http://localhost:8080/v3/api-docs]() ([baixar .json](openapi.json))
+- YAML: [http://localhost:8080/v3/api-docs.yaml]() ([baixar .yaml](openapi.yaml))
 
 Geração da documentação:
 
 ```
 mvn -B verify -DskipOpenAPIGen=false
 ```
+
+## Tecnologias utilizadas no MVP
+
+- [AWS](https://aws.amazon.com)
+- [Terraform](https://www.terraform.io)
+- [Kotlin](https://kotlinlang.org)
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [Maven](https://maven.apache.org)
+- [JUnit 5](https://junit.org/junit5)
+- [Jacoco](https://www.eclemma.org/jacoco)
+- [MockK](https://mockk.io)
+- [REST Assured](https://rest-assured.io)
+- [Testcontainers](https://testcontainers.com)
+- [Cucumber](https://cucumber.io)
+- [MapStruct](https://mapstruct.org)
+- [Hibernate](https://hibernate.org/orm)
+- [GitHub Actions](https://docs.github.com/en/actions)
+- [PostgreSQL](https://www.postgresql.org)
+- [Flyway](https://flywaydb.org)
+- [ktlint](https://pinterest.github.io/ktlint)
+- [SonarCloud](https://sonarcloud.io/project/overview?id=FIAP-3SOAT-G15_healthmed-app)
+- [MkDocs](https://www.mkdocs.org)
+- [OpenAPI](https://swagger.io/specification)
