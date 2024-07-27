@@ -35,5 +35,5 @@ jobs:
                   aws-region: ${{ vars.AWS_REGION }}
 
             - name: Sync S3 bucket
-              #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+              if: github.ref == 'refs/heads/main' && github.event_name == 'push'
               run: aws s3 sync ./site/ s3://${{ vars.AWS_S3_BUCKET_NAME }} --delete
