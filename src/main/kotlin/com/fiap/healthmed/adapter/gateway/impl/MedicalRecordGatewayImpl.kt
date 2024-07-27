@@ -5,9 +5,7 @@ import com.fiap.healthmed.domain.MedicalRecord
 import com.fiap.healthmed.domain.errors.ErrorType
 import com.fiap.healthmed.domain.errors.HealthMedException
 import com.fiap.healthmed.driver.database.persistence.jpa.MedicalRecordJpaRepository
-import com.fiap.healthmed.driver.database.persistence.mapper.MedicalAppointmentMapper
 import com.fiap.healthmed.driver.database.persistence.mapper.MedicalRecordMapper
-import org.mapstruct.factory.Mappers
 import org.springframework.stereotype.Component
 
 class MedicalRecordGatewayImpl(

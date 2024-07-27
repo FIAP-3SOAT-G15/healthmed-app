@@ -2,10 +2,11 @@ package com.fiap.healthmed.usecases.service
 
 import com.fiap.healthmed.adapter.gateway.MedicalAppointmentGateway
 import com.fiap.healthmed.adapter.gateway.MedicalRecordGateway
-import com.fiap.healthmed.createMedicalAppointment
 import com.fiap.healthmed.createDoctor
+import com.fiap.healthmed.createMedicalAppointment
 import com.fiap.healthmed.createPatient
-import com.fiap.healthmed.domain.*
+import com.fiap.healthmed.domain.MedicalAppointmentStatus
+import com.fiap.healthmed.domain.MedicalRecord
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

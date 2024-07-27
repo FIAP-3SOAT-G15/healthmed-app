@@ -1,6 +1,5 @@
 package com.fiap.healthmed.driver.database.persistence.entities
 
-import com.fiap.healthmed.domain.MedicalAppointmentStatus
 import jakarta.persistence.*
 import java.time.LocalDateTime
 

@@ -5,7 +5,6 @@ import com.fiap.healthmed.driver.web.request.DoctorRequest
 import com.fiap.healthmed.driver.web.request.PatientRequest
 import java.math.BigDecimal
 import java.time.DayOfWeek
-import java.time.LocalDateTime
 
 fun createAvailableTimesRequest(): AvailableTimesRequest {
     val availablePeriods = AvailableTimesRequest.AvailablePeriodsRequest(

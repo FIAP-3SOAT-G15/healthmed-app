@@ -2,7 +2,6 @@ package com.fiap.healthmed.driver.database.persistence.jpa
 
 import com.fiap.healthmed.driver.database.persistence.entities.MedicalAppointmentEntity
 import org.springframework.data.repository.CrudRepository
-import java.time.Instant
 import java.time.LocalDateTime
 
 interface MedicalAppointmentJpaRepository : CrudRepository<MedicalAppointmentEntity, Long> {
