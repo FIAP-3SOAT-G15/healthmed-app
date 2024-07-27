@@ -1,900 +1,1480 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-        "title": "Health&Med MVP",
-        "description": "Demo API para sistema de consultas médicas online",
-        "contact": {
-            "name": "Grupo 15",
-            "url": "http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com"
+    "openapi" : "3.0.1",
+    "info" : {
+        "title" : "Health&Med MVP",
+        "description" : "Demo API para sistema de consultas médicas online",
+        "contact" : {
+            "name" : "Grupo 15",
+            "url" : "http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com"
         },
-        "version": "1.0.0"
+        "version" : "1.0.0"
     },
-    "servers": [
-        {
-            "url": "/"
-        }
-    ],
-    "paths": {
-        "/healthmed/patient/{document}": {
-            "put": {
-                "tags": [
-                    "patient-controller"
-                ],
-                "summary": "Atualizar um cadastro de um paciente",
-                "operationId": "update",
-                "parameters": [
-                    {
-                        "name": "document",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatientRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Operação bem-sucedida",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Patient"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/doctor/{crm}": {
-            "get": {
-                "tags": [
-                    "doctor-controller"
-                ],
-                "operationId": "get",
-                "parameters": [
-                    {
-                        "name": "crm",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Doctor"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "doctor-controller"
-                ],
-                "summary": "Atualizar um cadastro de um médico",
-                "operationId": "update_1",
-                "parameters": [
-                    {
-                        "name": "crm",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/DoctorRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Operação bem-sucedida",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Doctor"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/patient": {
-            "post": {
-                "tags": [
-                    "patient-controller"
-                ],
-                "summary": "Cria um cadastro de um paciente",
-                "operationId": "create",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PatientRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Operação bem-sucedida",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Patient"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/medical-record/{appointmentNumber}/append": {
-            "post": {
-                "tags": [
-                    "medical-record-controller"
-                ],
-                "operationId": "appendAnnotations",
-                "parameters": [
-                    {
-                        "name": "appointmentNumber",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/MedicalRecordContentRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/MedicalAppointment"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/medical-appointment/patient/{document}/{crm}": {
-            "post": {
-                "tags": [
-                    "medical-appointment-by-patient-controller"
-                ],
-                "operationId": "scheduleAppointment",
-                "parameters": [
-                    {
-                        "name": "document",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "crm",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/TimeAndDateToScheduleRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/MedicalAppointment"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/medical-appointment/patient/{document}/cancel/{appointmentNumber}": {
-            "post": {
-                "tags": [
-                    "medical-appointment-by-patient-controller"
-                ],
-                "operationId": "cancelAppointment",
-                "parameters": [
-                    {
-                        "name": "document",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "appointmentNumber",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/JustificationCancellationRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/MedicalAppointment"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/medical-appointment/doctor/{crm}/reject/{appointmentNumber}": {
-            "post": {
-                "tags": [
-                    "medical-appointment-by-doctor-controller"
-                ],
-                "operationId": "rejectAppointment",
-                "parameters": [
-                    {
-                        "name": "crm",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "appointmentNumber",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/MedicalAppointment"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/medical-appointment/doctor/{crm}/accept/{appointmentNumber}": {
-            "post": {
-                "tags": [
-                    "medical-appointment-by-doctor-controller"
-                ],
-                "operationId": "acceptAppointment",
-                "parameters": [
-                    {
-                        "name": "crm",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "appointmentNumber",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/MedicalAppointment"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/doctor": {
-            "post": {
-                "tags": [
-                    "doctor-controller"
-                ],
-                "summary": "Cria um cadastro de um médico",
-                "operationId": "create_1",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/DoctorRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Operação bem-sucedida",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Doctor"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/doctor/{crm}/update-availability": {
-            "patch": {
-                "tags": [
-                    "doctor-controller"
-                ],
-                "summary": "Atualizar os horarios disponiveis do medico",
-                "operationId": "updateAvailableTimes",
-                "parameters": [
-                    {
-                        "name": "crm",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/AvailableTimesRequest"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Operação bem-sucedida",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Doctor"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/medical-appointment/patient/{document}": {
-            "get": {
-                "tags": [
-                    "medical-appointment-by-patient-controller"
-                ],
-                "operationId": "getAllMyAppointments",
-                "parameters": [
-                    {
-                        "name": "document",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/MedicalAppointment"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/medical-appointment/doctor/{crm}": {
-            "get": {
-                "tags": [
-                    "medical-appointment-by-doctor-controller"
-                ],
-                "operationId": "getAllMyAppointments_1",
-                "parameters": [
-                    {
-                        "name": "crm",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/MedicalAppointment"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/healthmed/doctor/search": {
-            "get": {
-                "tags": [
-                    "doctor-controller"
-                ],
-                "summary": "Busca de médicos",
-                "operationId": "search",
-                "parameters": [
-                    {
-                        "name": "query",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Doctor"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+    "servers" : [ {
+        "url" : "https://9w8hyu5091.execute-api.us-east-1.amazonaws.com/{basePath}",
+        "variables" : {
+            "basePath" : {
+                "default" : "prod"
             }
         }
-    },
-    "components": {
-        "schemas": {
-            "PatientRequest": {
-                "type": "object",
-                "properties": {
-                    "document": {
-                        "type": "string",
-                        "description": "CPF",
-                        "example": "12345678900"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name",
-                        "example": "Foo Bar"
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "Email",
-                        "example": "foo_bar@gmail.com"
-                    },
-                    "phoneNumber": {
-                        "type": "string",
-                        "description": "Phone number",
-                        "example": "+5511999999999"
-                    },
-                    "zipCode": {
-                        "type": "string",
-                        "description": "ZIP code",
-                        "example": "12345678"
-                    },
-                    "address": {
-                        "type": "string",
-                        "description": "Address",
-                        "example": "123, Main St."
-                    },
-                    "password": {
-                        "type": "string",
-                        "description": "Password",
-                        "example": "123456"
+    } ],
+    "paths" : {
+        "/healthmed/doctor/{crm}/update-availability" : {
+            "patch" : {
+                "tags" : [ "doctor-controller" ],
+                "summary" : "Atualizar os horarios disponiveis do medico",
+                "operationId" : "updateAvailableTimes",
+                "parameters" : [ {
+                    "name" : "crm",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
                     }
-                }
-            },
-            "Patient": {
-                "required": [
-                    "address",
-                    "document",
-                    "email",
-                    "name",
-                    "phoneNumber",
-                    "zipCode"
-                ],
-                "type": "object",
-                "properties": {
-                    "document": {
-                        "type": "string"
+                } ],
+                "requestBody" : {
+                    "description" : "Available times",
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/AvailableTimesRequest"
+                            }
+                        }
                     },
-                    "name": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "phoneNumber": {
-                        "type": "string"
-                    },
-                    "zipCode": {
-                        "type": "string"
-                    },
-                    "address": {
-                        "type": "string"
-                    }
-                }
-            },
-            "AvailablePeriodsRequest": {
-                "type": "object",
-                "properties": {
-                    "start": {
-                        "type": "string",
-                        "description": "Start time",
-                        "example": "12:00"
-                    },
-                    "end": {
-                        "type": "string",
-                        "description": "End time",
-                        "example": "18:00"
+                    "required" : true
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "Operação bem-sucedida",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/Doctor"
+                                }
+                            }
+                        }
                     }
                 },
-                "description": "Available slots",
-                "example": {
-                    "MONDAY": [
-                        {
-                            "start": "10:00",
-                            "end": "10:30"
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "GET",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/doctor/{crm}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
                         }
-                    ]
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.crm" : "method.request.path.crm"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/patient" : {
+            "post" : {
+                "tags" : [ "patient-controller" ],
+                "summary" : "Cria um cadastro de um paciente",
+                "operationId" : "create",
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/PatientRequest"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "Operação bem-sucedida",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/Patient"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "POST",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/patient",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/doctor" : {
+            "post" : {
+                "tags" : [ "doctor-controller" ],
+                "summary" : "Cria um cadastro de um médico",
+                "operationId" : "create_1",
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/DoctorRequest"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "Operação bem-sucedida",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/Doctor"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "POST",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/doctor",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/medical-appointment/patient/{document}/cancel/{appointmentNumber}" : {
+            "post" : {
+                "tags" : [ "medical-appointment-by-patient-controller" ],
+                "operationId" : "cancelAppointment",
+                "parameters" : [ {
+                    "name" : "document",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                }, {
+                    "name" : "appointmentNumber",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/JustificationCancellationRequest"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/MedicalAppointment"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "POST",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/medical-appointment/patient/{document}/cancel/{appointmentNumber}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.document" : "method.request.path.document",
+                        "integration.request.path.appointmentNumber" : "method.request.path.appointmentNumber"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/doctor/{crm}" : {
+            "get" : {
+                "tags" : [ "doctor-controller" ],
+                "operationId" : "get",
+                "parameters" : [ {
+                    "name" : "crm",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/Doctor"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "GET",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/doctor/{crm}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.crm" : "method.request.path.crm"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
                 }
             },
-            "AvailableTimesRequest": {
-                "type": "object",
-                "properties": {
-                    "slots": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "array",
-                            "description": "Available slots",
-                            "example": {
-                                "MONDAY": [
-                                    {
-                                        "start": "10:00",
-                                        "end": "10:30"
-                                    }
-                                ]
-                            },
-                            "items": {
-                                "$ref": "#/components/schemas/AvailablePeriodsRequest"
+            "put" : {
+                "tags" : [ "doctor-controller" ],
+                "summary" : "Atualizar um cadastro de um médico",
+                "operationId" : "update_1",
+                "parameters" : [ {
+                    "name" : "crm",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/DoctorRequest"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "Operação bem-sucedida",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/Doctor"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "PUT",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/doctor/{crm}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.crm" : "method.request.path.crm"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/medical-appointment/doctor/{crm}" : {
+            "get" : {
+                "tags" : [ "medical-appointment-by-doctor-controller" ],
+                "operationId" : "getAllMyAppointments_1",
+                "parameters" : [ {
+                    "name" : "crm",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/ArrayOfMedicalAppointment"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "GET",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/medical-appointment/doctor/{crm}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.crm" : "method.request.path.crm"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/medical-appointment/patient/{document}" : {
+            "get" : {
+                "tags" : [ "medical-appointment-by-patient-controller" ],
+                "operationId" : "getAllMyAppointments",
+                "parameters" : [ {
+                    "name" : "document",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/ArrayOfMedicalAppointment"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "GET",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/medical-appointment/patient/{document}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.document" : "method.request.path.document"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/medical-appointment/doctor/{crm}/reject/{appointmentNumber}" : {
+            "post" : {
+                "tags" : [ "medical-appointment-by-doctor-controller" ],
+                "operationId" : "rejectAppointment",
+                "parameters" : [ {
+                    "name" : "crm",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                }, {
+                    "name" : "appointmentNumber",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/MedicalAppointment"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "POST",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/medical-appointment/doctor/{crm}/reject/{appointmentNumber}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.crm" : "method.request.path.crm",
+                        "integration.request.path.appointmentNumber" : "method.request.path.appointmentNumber"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/doctor/search" : {
+            "get" : {
+                "tags" : [ "doctor-controller" ],
+                "summary" : "Busca de médicos",
+                "operationId" : "search",
+                "parameters" : [ {
+                    "name" : "query",
+                    "in" : "query",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/ArrayOfDoctor"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "GET",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/doctor/search",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/medical-appointment/doctor/{crm}/accept/{appointmentNumber}" : {
+            "post" : {
+                "tags" : [ "medical-appointment-by-doctor-controller" ],
+                "operationId" : "acceptAppointment",
+                "parameters" : [ {
+                    "name" : "crm",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                }, {
+                    "name" : "appointmentNumber",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/MedicalAppointment"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "POST",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/medical-appointment/doctor/{crm}/accept/{appointmentNumber}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.crm" : "method.request.path.crm",
+                        "integration.request.path.appointmentNumber" : "method.request.path.appointmentNumber"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/patient/{document}" : {
+            "put" : {
+                "tags" : [ "patient-controller" ],
+                "summary" : "Atualizar um cadastro de um paciente",
+                "operationId" : "update",
+                "parameters" : [ {
+                    "name" : "document",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/PatientRequest"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "Operação bem-sucedida",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/Patient"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "PUT",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/patient/{document}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.document" : "method.request.path.document"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/medical-appointment/patient/{document}/{crm}" : {
+            "post" : {
+                "tags" : [ "medical-appointment-by-patient-controller" ],
+                "operationId" : "scheduleAppointment",
+                "parameters" : [ {
+                    "name" : "document",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                }, {
+                    "name" : "crm",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/TimeAndDateToScheduleRequest"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/MedicalAppointment"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "POST",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/medical-appointment/patient/{document}/{crm}",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.document" : "method.request.path.document",
+                        "integration.request.path.crm" : "method.request.path.crm"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        },
+        "/healthmed/medical-record/{appointmentNumber}/append" : {
+            "post" : {
+                "tags" : [ "medical-record-controller" ],
+                "operationId" : "appendAnnotations",
+                "parameters" : [ {
+                    "name" : "appointmentNumber",
+                    "in" : "path",
+                    "required" : true,
+                    "schema" : {
+                        "type" : "string"
+                    }
+                } ],
+                "requestBody" : {
+                    "content" : {
+                        "application/json" : {
+                            "schema" : {
+                                "$ref" : "#/components/schemas/MedicalRecordContentRequest"
+                            }
+                        }
+                    },
+                    "required" : true
+                },
+                "responses" : {
+                    "200" : {
+                        "description" : "OK",
+                        "content" : {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/MedicalAppointment"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-amazon-apigateway-integration" : {
+                    "connectionId" : "dm2qb6",
+                    "httpMethod" : "POST",
+                    "uri" : "http://${dns_name}:${target_group_port}/healthmed/medical-record/{appointmentNumber}/append",
+                    "responses" : {
+                        "default" : {
+                            "statusCode" : "200"
+                        }
+                    },
+                    "requestParameters" : {
+                        "integration.request.path.appointmentNumber" : "method.request.path.appointmentNumber"
+                    },
+                    "passthroughBehavior" : "when_no_match",
+                    "connectionType" : "VPC_LINK",
+                    "type" : "http"
+                }
+            }
+        }
+    },
+    "components" : {
+        "schemas" : {
+            "AvailablePeriodsRequest" : {
+                "type" : "object",
+                "properties" : {
+                    "start" : {
+                        "type" : "string",
+                        "description" : "Start time"
+                    },
+                    "end" : {
+                        "type" : "string",
+                        "description" : "End time"
+                    }
+                },
+                "description" : "Available slots"
+            },
+            "AvailableTimes" : {
+                "required" : [ "slots" ],
+                "type" : "object",
+                "properties" : {
+                    "slots" : {
+                        "type" : "object",
+                        "additionalProperties" : {
+                            "type" : "array",
+                            "items" : {
+                                "$ref" : "#/components/schemas/AvailablePeriods"
+                            }
+                        }
+                    }
+                }
+            },
+            "TimeAndDateToScheduleRequest" : {
+                "type" : "object",
+                "properties" : {
+                    "scheduleAt" : {
+                        "type" : "string",
+                        "description" : "scheduleAt",
+                        "format" : "date-time"
+                    }
+                }
+            },
+            "MedicalRecordContentRequest" : {
+                "type" : "object",
+                "properties" : {
+                    "content" : {
+                        "type" : "string",
+                        "description" : "Medical record content"
+                    }
+                }
+            },
+            "Patient" : {
+                "required" : [ "address", "document", "email", "name", "phoneNumber", "zipCode" ],
+                "type" : "object",
+                "properties" : {
+                    "document" : {
+                        "type" : "string"
+                    },
+                    "name" : {
+                        "type" : "string"
+                    },
+                    "email" : {
+                        "type" : "string"
+                    },
+                    "phoneNumber" : {
+                        "type" : "string"
+                    },
+                    "zipCode" : {
+                        "type" : "string"
+                    },
+                    "address" : {
+                        "type" : "string"
+                    }
+                }
+            },
+            "AvailablePeriods" : {
+                "required" : [ "end", "start" ],
+                "type" : "object",
+                "properties" : {
+                    "start" : {
+                        "type" : "string"
+                    },
+                    "end" : {
+                        "type" : "string"
+                    }
+                }
+            },
+            "Doctor" : {
+                "required" : [ "appointmentPrice", "availableTimes", "crm", "document", "email", "name", "phoneNumber", "serviceAddress", "serviceZipCode", "specialty" ],
+                "type" : "object",
+                "properties" : {
+                    "crm" : {
+                        "type" : "string"
+                    },
+                    "document" : {
+                        "type" : "string"
+                    },
+                    "specialty" : {
+                        "type" : "string"
+                    },
+                    "name" : {
+                        "type" : "string"
+                    },
+                    "email" : {
+                        "type" : "string"
+                    },
+                    "phoneNumber" : {
+                        "type" : "string"
+                    },
+                    "serviceZipCode" : {
+                        "type" : "string"
+                    },
+                    "serviceAddress" : {
+                        "type" : "string"
+                    },
+                    "availableTimes" : {
+                        "$ref" : "#/components/schemas/AvailableTimes"
+                    },
+                    "appointmentPrice" : {
+                        "type" : "number"
+                    }
+                }
+            },
+            "ArrayOfMedicalAppointment" : {
+                "type" : "array",
+                "items" : {
+                    "$ref" : "#/components/schemas/MedicalAppointment"
+                }
+            },
+            "MedicalAppointment" : {
+                "required" : [ "doctor", "estimatedTimeSpentInMinutes", "expectedStartTime", "patient", "status" ],
+                "type" : "object",
+                "properties" : {
+                    "number" : {
+                        "type" : "integer",
+                        "format" : "int64"
+                    },
+                    "doctor" : {
+                        "$ref" : "#/components/schemas/Doctor"
+                    },
+                    "patient" : {
+                        "$ref" : "#/components/schemas/Patient"
+                    },
+                    "expectedStartTime" : {
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "estimatedTimeSpentInMinutes" : {
+                        "type" : "integer",
+                        "format" : "int32"
+                    },
+                    "status" : {
+                        "type" : "string",
+                        "enum" : [ "SCHEDULED", "CANCELED", "ACCEPTED", "REJECTED", "FINISHED" ]
+                    },
+                    "statusChangedAt" : {
+                        "type" : "string",
+                        "format" : "date-time"
+                    },
+                    "justificationCancellationByPatient" : {
+                        "type" : "string"
+                    }
+                }
+            },
+            "DoctorRequest" : {
+                "type" : "object",
+                "properties" : {
+                    "crm" : {
+                        "type" : "string",
+                        "description" : "CRM"
+                    },
+                    "document" : {
+                        "type" : "string",
+                        "description" : "CPF"
+                    },
+                    "specialty" : {
+                        "type" : "string",
+                        "description" : "Specialty"
+                    },
+                    "name" : {
+                        "type" : "string",
+                        "description" : "Name"
+                    },
+                    "email" : {
+                        "type" : "string",
+                        "description" : "Email"
+                    },
+                    "phoneNumber" : {
+                        "type" : "string",
+                        "description" : "Phone number"
+                    },
+                    "serviceZipCode" : {
+                        "type" : "string",
+                        "description" : "Service ZIP code"
+                    },
+                    "serviceAddress" : {
+                        "type" : "string",
+                        "description" : "Service address"
+                    },
+                    "availableTimes" : {
+                        "$ref" : "#/components/schemas/AvailableTimesRequest"
+                    },
+                    "appointmentPrice" : {
+                        "type" : "number",
+                        "description" : "Appointment price"
+                    },
+                    "password" : {
+                        "type" : "string",
+                        "description" : "Password"
+                    }
+                }
+            },
+            "JustificationCancellationRequest" : {
+                "type" : "object",
+                "properties" : {
+                    "text" : {
+                        "type" : "string",
+                        "description" : "Justification text"
+                    }
+                }
+            },
+            "PatientRequest" : {
+                "type" : "object",
+                "properties" : {
+                    "document" : {
+                        "type" : "string",
+                        "description" : "CPF"
+                    },
+                    "name" : {
+                        "type" : "string",
+                        "description" : "Name"
+                    },
+                    "email" : {
+                        "type" : "string",
+                        "description" : "Email"
+                    },
+                    "phoneNumber" : {
+                        "type" : "string",
+                        "description" : "Phone number"
+                    },
+                    "zipCode" : {
+                        "type" : "string",
+                        "description" : "ZIP code"
+                    },
+                    "address" : {
+                        "type" : "string",
+                        "description" : "Address"
+                    },
+                    "password" : {
+                        "type" : "string",
+                        "description" : "Password"
+                    }
+                }
+            },
+            "AvailableTimesRequest" : {
+                "type" : "object",
+                "properties" : {
+                    "slots" : {
+                        "type" : "object",
+                        "additionalProperties" : {
+                            "type" : "array",
+                            "description" : "Available slots",
+                            "items" : {
+                                "$ref" : "#/components/schemas/AvailablePeriodsRequest"
                             }
                         },
-                        "description": "Available slots",
-                        "example": {
-                            "MONDAY": [
-                                {
-                                    "start": "10:00",
-                                    "end": "10:30"
-                                }
-                            ]
-                        }
+                        "description" : "Available slots"
                     }
                 },
-                "description": "Available times"
+                "description" : "Available times"
             },
-            "DoctorRequest": {
-                "type": "object",
-                "properties": {
-                    "crm": {
-                        "type": "string",
-                        "description": "CRM",
-                        "example": "123456"
-                    },
-                    "document": {
-                        "type": "string",
-                        "description": "CPF",
-                        "example": "28685216907"
-                    },
-                    "specialty": {
-                        "type": "string",
-                        "description": "Specialty",
-                        "example": "Cardiologist"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name",
-                        "example": "John Doe"
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "Email",
-                        "example": "john_doe@gmail.com"
-                    },
-                    "phoneNumber": {
-                        "type": "string",
-                        "description": "Phone number",
-                        "example": "+5511999999999"
-                    },
-                    "serviceZipCode": {
-                        "type": "string",
-                        "description": "Service ZIP code",
-                        "example": "12345678"
-                    },
-                    "serviceAddress": {
-                        "type": "string",
-                        "description": "Service address",
-                        "example": "123, Main St."
-                    },
-                    "availableTimes": {
-                        "$ref": "#/components/schemas/AvailableTimesRequest"
-                    },
-                    "appointmentPrice": {
-                        "type": "number",
-                        "description": "Appointment price",
-                        "example": 100
-                    },
-                    "password": {
-                        "type": "string",
-                        "description": "Password",
-                        "example": "123456"
-                    }
+            "ArrayOfDoctor" : {
+                "type" : "array",
+                "items" : {
+                    "$ref" : "#/components/schemas/Doctor"
                 }
-            },
-            "AvailablePeriods": {
-                "required": [
-                    "end",
-                    "start"
-                ],
-                "type": "object",
-                "properties": {
-                    "start": {
-                        "type": "string"
-                    },
-                    "end": {
-                        "type": "string"
-                    }
-                }
-            },
-            "AvailableTimes": {
-                "required": [
-                    "slots"
-                ],
-                "type": "object",
-                "properties": {
-                    "slots": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/components/schemas/AvailablePeriods"
-                            }
-                        }
-                    }
-                }
-            },
-            "Doctor": {
-                "required": [
-                    "appointmentPrice",
-                    "availableTimes",
-                    "crm",
-                    "document",
-                    "email",
-                    "name",
-                    "phoneNumber",
-                    "serviceAddress",
-                    "serviceZipCode",
-                    "specialty"
-                ],
-                "type": "object",
-                "properties": {
-                    "crm": {
-                        "type": "string"
-                    },
-                    "document": {
-                        "type": "string"
-                    },
-                    "specialty": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "phoneNumber": {
-                        "type": "string"
-                    },
-                    "serviceZipCode": {
-                        "type": "string"
-                    },
-                    "serviceAddress": {
-                        "type": "string"
-                    },
-                    "availableTimes": {
-                        "$ref": "#/components/schemas/AvailableTimes"
-                    },
-                    "appointmentPrice": {
-                        "type": "number"
-                    }
-                }
-            },
-            "MedicalRecordContentRequest": {
-                "type": "object",
-                "properties": {
-                    "content": {
-                        "type": "string",
-                        "description": "Medical record content",
-                        "example": "Patient has a fever"
-                    }
-                }
-            },
-            "MedicalAppointment": {
-                "required": [
-                    "doctor",
-                    "estimatedTimeSpentInMinutes",
-                    "expectedStartTime",
-                    "patient",
-                    "status"
-                ],
-                "type": "object",
-                "properties": {
-                    "number": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "doctor": {
-                        "$ref": "#/components/schemas/Doctor"
-                    },
-                    "patient": {
-                        "$ref": "#/components/schemas/Patient"
-                    },
-                    "expectedStartTime": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "estimatedTimeSpentInMinutes": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "status": {
-                        "type": "string",
-                        "enum": [
-                            "SCHEDULED",
-                            "CANCELED",
-                            "ACCEPTED",
-                            "REJECTED",
-                            "FINISHED"
-                        ]
-                    },
-                    "statusChangedAt": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "justificationCancellationByPatient": {
-                        "type": "string"
-                    }
-                }
-            },
-            "TimeAndDateToScheduleRequest": {
-                "type": "object",
-                "properties": {
-                    "scheduleAt": {
-                        "type": "string",
-                        "description": "scheduleAt",
-                        "format": "date-time"
-                    }
-                }
-            },
-            "JustificationCancellationRequest": {
-                "type": "object",
-                "properties": {
-                    "text": {
-                        "type": "string",
-                        "description": "Justification text",
-                        "example": "I'm not feeling well"
-                    }
-                }
-            }
-        },
-        "securitySchemes": {
-            "Bearer Authentication": {
-                "type": "http",
-                "scheme": "bearer",
-                "bearerFormat": "JWT"
             }
         }
+    },
+    "x-amazon-apigateway-documentation" : {
+        "version" : "1.0.2",
+        "createdDate" : "2024-07-27T05:13:59Z",
+        "documentationParts" : [ {
+            "location" : {
+                "type" : "API"
+            },
+            "properties" : {
+                "version" : "1.0.0",
+                "info" : {
+                    "description" : "Demo API para sistema de consultas médicas online",
+                    "contact" : {
+                        "name" : "Grupo 15",
+                        "url" : "http://fiap-3soat-g15-healthmed.s3-website-us-east-1.amazonaws.com"
+                    }
+                }
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/doctor/search",
+                "method" : "GET"
+            },
+            "properties" : {
+                "tags" : [ "doctor-controller" ],
+                "summary" : "Busca de médicos"
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/doctor/{crm}/update-availability",
+                "method" : "PATCH"
+            },
+            "properties" : {
+                "tags" : [ "doctor-controller" ],
+                "summary" : "Atualizar os horarios disponiveis do medico"
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/doctor/{crm}",
+                "method" : "GET"
+            },
+            "properties" : {
+                "tags" : [ "doctor-controller" ]
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/doctor/{crm}",
+                "method" : "PUT"
+            },
+            "properties" : {
+                "tags" : [ "doctor-controller" ],
+                "summary" : "Atualizar um cadastro de um médico"
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/doctor",
+                "method" : "POST"
+            },
+            "properties" : {
+                "tags" : [ "doctor-controller" ],
+                "summary" : "Cria um cadastro de um médico"
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/medical-appointment/doctor/{crm}/accept/{appointmentNumber}",
+                "method" : "POST"
+            },
+            "properties" : {
+                "tags" : [ "medical-appointment-by-doctor-controller" ]
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/medical-appointment/doctor/{crm}/reject/{appointmentNumber}",
+                "method" : "POST"
+            },
+            "properties" : {
+                "tags" : [ "medical-appointment-by-doctor-controller" ]
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/medical-appointment/doctor/{crm}",
+                "method" : "GET"
+            },
+            "properties" : {
+                "tags" : [ "medical-appointment-by-doctor-controller" ]
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/medical-appointment/patient/{document}/cancel/{appointmentNumber}",
+                "method" : "POST"
+            },
+            "properties" : {
+                "tags" : [ "medical-appointment-by-patient-controller" ]
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/medical-appointment/patient/{document}/{crm}",
+                "method" : "POST"
+            },
+            "properties" : {
+                "tags" : [ "medical-appointment-by-patient-controller" ]
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/medical-appointment/patient/{document}",
+                "method" : "GET"
+            },
+            "properties" : {
+                "tags" : [ "medical-appointment-by-patient-controller" ]
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/medical-record/{appointmentNumber}/append",
+                "method" : "POST"
+            },
+            "properties" : {
+                "tags" : [ "medical-record-controller" ]
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/patient/{document}",
+                "method" : "PUT"
+            },
+            "properties" : {
+                "tags" : [ "patient-controller" ],
+                "summary" : "Atualizar um cadastro de um paciente"
+            }
+        }, {
+            "location" : {
+                "type" : "METHOD",
+                "path" : "/healthmed/patient",
+                "method" : "POST"
+            },
+            "properties" : {
+                "tags" : [ "patient-controller" ],
+                "summary" : "Cria um cadastro de um paciente"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "AvailablePeriodsRequest.end"
+            },
+            "properties" : {
+                "description" : "End time"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "AvailablePeriodsRequest.start"
+            },
+            "properties" : {
+                "description" : "Start time"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "AvailablePeriodsRequest"
+            },
+            "properties" : {
+                "description" : "Available slots"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "AvailableTimesRequest.slots"
+            },
+            "properties" : {
+                "description" : "Available slots"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "AvailableTimesRequest"
+            },
+            "properties" : {
+                "description" : "Available times"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.appointmentPrice"
+            },
+            "properties" : {
+                "description" : "Appointment price"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.crm"
+            },
+            "properties" : {
+                "description" : "CRM"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.document"
+            },
+            "properties" : {
+                "description" : "CPF"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.email"
+            },
+            "properties" : {
+                "description" : "Email"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.name"
+            },
+            "properties" : {
+                "description" : "Name"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.password"
+            },
+            "properties" : {
+                "description" : "Password"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.phoneNumber"
+            },
+            "properties" : {
+                "description" : "Phone number"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.serviceAddress"
+            },
+            "properties" : {
+                "description" : "Service address"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.serviceZipCode"
+            },
+            "properties" : {
+                "description" : "Service ZIP code"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "DoctorRequest.specialty"
+            },
+            "properties" : {
+                "description" : "Specialty"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "JustificationCancellationRequest.text"
+            },
+            "properties" : {
+                "description" : "Justification text"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "MedicalRecordContentRequest.content"
+            },
+            "properties" : {
+                "description" : "Medical record content"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "PatientRequest.address"
+            },
+            "properties" : {
+                "description" : "Address"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "PatientRequest.document"
+            },
+            "properties" : {
+                "description" : "CPF"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "PatientRequest.email"
+            },
+            "properties" : {
+                "description" : "Email"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "PatientRequest.name"
+            },
+            "properties" : {
+                "description" : "Name"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "PatientRequest.password"
+            },
+            "properties" : {
+                "description" : "Password"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "PatientRequest.phoneNumber"
+            },
+            "properties" : {
+                "description" : "Phone number"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "PatientRequest.zipCode"
+            },
+            "properties" : {
+                "description" : "ZIP code"
+            }
+        }, {
+            "location" : {
+                "type" : "MODEL",
+                "name" : "TimeAndDateToScheduleRequest.scheduleAt"
+            },
+            "properties" : {
+                "description" : "scheduleAt"
+            }
+        }, {
+            "location" : {
+                "type" : "REQUEST_BODY",
+                "path" : "/healthmed/doctor/{crm}/update-availability",
+                "method" : "PATCH"
+            },
+            "properties" : {
+                "description" : "Available times"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/doctor/search",
+                "method" : "GET",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/doctor/{crm}/update-availability",
+                "method" : "PATCH",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "Operação bem-sucedida"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/doctor/{crm}",
+                "method" : "GET",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/doctor/{crm}",
+                "method" : "PUT",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "Operação bem-sucedida"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/doctor",
+                "method" : "POST",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "Operação bem-sucedida"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/medical-appointment/doctor/{crm}/accept/{appointmentNumber}",
+                "method" : "POST",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/medical-appointment/doctor/{crm}/reject/{appointmentNumber}",
+                "method" : "POST",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/medical-appointment/doctor/{crm}",
+                "method" : "GET",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/medical-appointment/patient/{document}/cancel/{appointmentNumber}",
+                "method" : "POST",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/medical-appointment/patient/{document}/{crm}",
+                "method" : "POST",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/medical-appointment/patient/{document}",
+                "method" : "GET",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/medical-record/{appointmentNumber}/append",
+                "method" : "POST",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "OK"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/patient/{document}",
+                "method" : "PUT",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "Operação bem-sucedida"
+            }
+        }, {
+            "location" : {
+                "type" : "RESPONSE",
+                "path" : "/healthmed/patient",
+                "method" : "POST",
+                "statusCode" : "200"
+            },
+            "properties" : {
+                "description" : "Operação bem-sucedida"
+            }
+        } ]
     }
 }
