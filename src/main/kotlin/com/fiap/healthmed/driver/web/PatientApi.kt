@@ -5,10 +5,11 @@ import com.fiap.healthmed.driver.web.request.PatientRequest
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/healthmed/patient")
+@RequestMapping("/healthmed/patient", produces = [MediaType.APPLICATION_JSON_VALUE])
 interface PatientApi {
 
     @Operation(summary = "Cria um cadastro de um paciente")

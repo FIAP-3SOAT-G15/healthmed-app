@@ -1,14 +1,12 @@
 package com.fiap.healthmed.adapter.gateway.impl
 
 import com.fiap.healthmed.adapter.gateway.DoctorGateway
-import com.fiap.healthmed.domain.AvailableTimes
 import com.fiap.healthmed.domain.Doctor
 import com.fiap.healthmed.domain.errors.ErrorType
 import com.fiap.healthmed.domain.errors.HealthMedException
 import com.fiap.healthmed.driver.database.persistence.entities.DoctorEntity
 import com.fiap.healthmed.driver.database.persistence.jpa.DoctorJpaRepository
 import com.fiap.healthmed.driver.database.persistence.mapper.DoctorMapper
-import org.mapstruct.factory.Mappers
 import org.springframework.transaction.annotation.Transactional
 
 open class DoctorGatewayImpl(

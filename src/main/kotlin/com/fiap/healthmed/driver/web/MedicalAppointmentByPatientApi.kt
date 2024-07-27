@@ -3,10 +3,11 @@ package com.fiap.healthmed.driver.web
 import com.fiap.healthmed.domain.MedicalAppointment
 import com.fiap.healthmed.driver.web.request.JustificationCancellationRequest
 import com.fiap.healthmed.driver.web.request.TimeAndDateToScheduleRequest
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@RequestMapping("/healthmed/medical-appointment/patient/{document}")
+@RequestMapping("/healthmed/medical-appointment/patient/{document}", produces = [MediaType.APPLICATION_JSON_VALUE])
 interface MedicalAppointmentByPatientApi {
 
     @PostMapping("/{crm}")
