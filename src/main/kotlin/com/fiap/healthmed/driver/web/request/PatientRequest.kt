@@ -15,7 +15,9 @@ data class PatientRequest(
     @Schema(description = "ZIP code", example = "12345678")
     val zipCode: String,
     @Schema(description = "Address", example = "123, Main St.")
-    val address: String
+    val address: String,
+    @Schema(description = "Password", example = "123456")
+    val password: String,
 )
 
 fun PatientRequest.toDomain(): Patient = Patient(

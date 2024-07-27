@@ -4,6 +4,7 @@ import com.fiap.healthmed.domain.Doctor
 import com.fiap.healthmed.driver.web.request.AvailableTimesRequest
 import com.fiap.healthmed.driver.web.request.DoctorRequest
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.http.ResponseEntity
@@ -45,7 +46,16 @@ interface DoctorApi {
         @RequestBody request: AvailableTimesRequest
     ): ResponseEntity<Doctor>
 
+    @Operation(summary = "Busca de médicos")
     @GetMapping("/search")
+    @Schema(
+        name = "query",
+        description = "Query parameters",
+        example = """
+        {
+          "speciality": "Cardiologist"
+        }
+    """)
     fun search(@RequestParam query: Map<String, String>): ResponseEntity<List<Doctor>>
 
     @GetMapping("/{crm}")

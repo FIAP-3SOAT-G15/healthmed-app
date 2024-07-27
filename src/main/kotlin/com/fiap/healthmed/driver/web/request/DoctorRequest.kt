@@ -25,6 +25,8 @@ data class DoctorRequest(
     val availableTimes: AvailableTimesRequest,
     @Schema(description = "Appointment price", example = "100.00")
     val appointmentPrice: BigDecimal,
+    @Schema(description = "Password", example = "123456")
+    val password: String,
 )
 
 fun DoctorRequest.toDomain(): Doctor = Doctor(

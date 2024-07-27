@@ -13,8 +13,8 @@ data class AvailableTimesRequest(
         {
             "MONDAY": [
                 {
-                    "start": "2022-12-31T00:00:00",
-                    "end": "2022-12-31T23:59:59"
+                    "start": "10:00",
+                    "end": "10:30"
                 }
             ]
         }
