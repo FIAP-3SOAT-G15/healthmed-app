@@ -34,7 +34,8 @@ fun createDoctorRequest(
     serviceZipCode: String = "01538-001",
     serviceAddress: String = "Av. Paulista, 1106",
     availableTimes: AvailableTimesRequest = createAvailableTimesRequest(),
-    appointmentPrice: BigDecimal = BigDecimal("150.00")
+    appointmentPrice: BigDecimal = BigDecimal("150.00"),
+    password: String = "123456",
 ) = DoctorRequest(
     crm = crm,
     document = document,
@@ -46,6 +47,7 @@ fun createDoctorRequest(
     serviceAddress = serviceAddress,
     availableTimes = availableTimes,
     appointmentPrice = appointmentPrice,
+    password = password,
 )
 
 fun createPatientRequest(
@@ -55,6 +57,7 @@ fun createPatientRequest(
     phoneNumber: String = "988888888",
     address: String = "Av. Lins de Vasconcelos, 1222",
     zipCode: String = "01538-001",
+    password: String = "123456",
 ) = PatientRequest(
     document = document,
     name = name,
@@ -62,4 +65,5 @@ fun createPatientRequest(
     phoneNumber = phoneNumber,
     zipCode = zipCode,
     address = address,
+    password = password,
 )
